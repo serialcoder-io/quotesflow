@@ -1,0 +1,234 @@
+import uuid
+from django.db import models
+from django.contrib.auth.models import (
+    AbstractBaseUser, 
+    BaseUserManager, 
+    PermissionsMixin, 
+    Group, Permission
+)
+from django.utils.translation import gettext_lazy as _
+from django.conf import settings
+from organizations.base import (
+    AbstractBaseOrganizationUser, 
+    AbstractBaseOrganization
+)
+from django_countries.fields import CountryField
+from django_quill.fields import QuillField
+
+# --------------------------
+# Custom User
+# --------------------------
+class CustomUserManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError(_('The Email field must be set'))
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError(_('Superuser must have is_staff=True.'))
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError(_('Superuser must have is_superuser=True.'))
+
+        return self.create_user(email, password, **extra_fields)
+
+
+class CustomUser(AbstractBaseUser, PermissionsMixin):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    email = models.EmailField(verbose_name=_('email address'), unique=True)
+    first_name = models.CharField(verbose_name=_('first name'), max_length=30, blank=True)
+    last_name = models.CharField(verbose_name=_('last name'), max_length=30, blank=True)
+    phone_number = models.CharField(verbose_name=_('phone number'), max_length=20, blank=True)
+    avatar = models.ImageField(verbose_name=_('profile photo'), upload_to="avatars/", blank=True, null=True)
+    is_active = models.BooleanField(verbose_name=_('active'), default=True)
+    is_staff = models.BooleanField(verbose_name=_('staff status'), default=False)
+    date_joined = models.DateTimeField(verbose_name=_('date joined'), auto_now_add=True)
+
+    groups = models.ManyToManyField(Group, related_name='customuser_set', blank=True, verbose_name=_('user groups'))
+    user_permissions = models.ManyToManyField(Permission, related_name='customuser_set', blank=True, verbose_name=_('user permissions'))
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = _('user')
+        verbose_name_plural = _('users')
+        db_table = 'custom_user'
+
+
+# --------------------------
+# Organization Permissions, Roles and plan
+# --------------------------
+class OrgPermissions(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    code = models.CharField(verbose_name=_('code'), max_length=20, unique=True)
+    label = models.CharField(verbose_name=_('label'), max_length=60)
+
+    def __str__(self):
+        return self.code
+
+    class Meta:
+        verbose_name = _('organization permission')
+        verbose_name_plural = _('organization permissions')
+        db_table = 'org_permissions'
+
+
+class OrgRole(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    name = models.CharField(verbose_name=_('role name'), max_length=20, unique=True)
+    permissions = models.ManyToManyField(OrgPermissions, blank=True, verbose_name=_('permissions'))
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('organization role')
+        verbose_name_plural = _('organization roles')
+        db_table = 'org_roles'
+
+
+# --------------------------
+# Plan and features
+# --------------------------
+class ValueTypeChoices(models.TextChoices):
+    BOOLEAN = 'bool', 'Bool'
+    INTEGER = 'int', 'Int'
+
+class Feature(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    code = models.CharField(verbose_name=_('code'), max_length=50, unique=True)
+    value_type = models.CharField(verbose_name=_('value type'), max_length=8, choices=ValueTypeChoices, default=ValueTypeChoices.BOOLEAN, help_text=_('the type of the value: form exp for feature send invoice to client by email, the type of the the vallue will be true or false'))
+    description = QuillField(verbose_name=_('description'))
+
+    class Meta:
+        db_table = 'features'
+        verbose_name = "Feature"
+        verbose_name_plural = "Features"
+
+    def __str__(self):
+        return self.code
+
+
+class PlanChoices(models.TextChoices):
+    FREE = 'free', _('Free')
+    STARTER = 'starter', _('Starter')
+    PREMIUM = 'premium', _('Premium')
+    ENTREPRISE = 'entreprise', _('Entreprise')
+
+class SubscriptionPlan(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    name = models.CharField(verbose_name=_('plan name'), max_length=12, choices=PlanChoices, default=PlanChoices.FREE)
+    monthly_price = models.PositiveBigIntegerField()
+    features = models.ManyToManyField(Feature, through='accounts.SubscriptionPlanFeature')
+
+    class Meta:
+        db_table = 'subscription_plans'
+        verbose_name = "Subscription Plan"
+        verbose_name_plural = "Subscription Plans"
+    
+    def __str__(self):
+        return self.name
+
+
+class SubscriptionPlanFeature(models.Model):
+    feature = models.ForeignKey(Feature, on_delete=models.CASCADE, verbose_name=_('feature'))
+    subscription_plan = models.ForeignKey(SubscriptionPlan, on_delete=models.CASCADE, verbose_name=_('subscription plan'))
+    value = models.CharField(verbose_name=_('the value of the feature for the plan'), max_length=60, blank=True)
+
+    class Meta:
+        db_table = 'subscription_plan_features'
+        verbose_name = "Subscription plan Feature"
+        verbose_name_plural = "Subscription plan Features"
+
+    def __str__(self):
+        return f"{self.subscription_plan.name} - {self.feature.code}"
+
+
+# --------------------------
+# Organization
+# --------------------------
+class Organization(AbstractBaseOrganization):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    name = models.CharField(verbose_name=_('organization name'), max_length=100, unique=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='owned_organizations',
+        verbose_name=_('owner')
+    )
+    logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
+    legal_id_name = models.CharField(verbose_name=_('legal ID name'), max_length=50)  # ex: SIRET
+    legal_id = models.CharField(verbose_name=_('legal ID value'), max_length=50)
+    subscription_plan = models.ForeignKey(
+        SubscriptionPlan, 
+        on_delete=models.SET_NULL, 
+        null=True, blank=True, 
+        verbose_name=_('Subscription plan')
+    )
+    subscription_start = models.DateField(_('subscription start date'), blank=True, null=True)
+    subscription_duration = models.PositiveIntegerField(verbose_name=_('duration in month'), default=1)
+    country = CountryField(verbose_name=_('country'), blank=True, null=True)
+    address = models.CharField(verbose_name=_('address'), max_length=200)
+    created_at = models.DateTimeField(verbose_name=_('creation date'), auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = _('organization')
+        verbose_name_plural = _('organizations')
+        db_table = 'org_organizations'
+
+
+# --------------------------
+# OrganizationUser
+# --------------------------
+class OrganizationUser(AbstractBaseOrganizationUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="user_organizations",
+        verbose_name=_('user')
+    )
+    organization = models.ForeignKey(
+        Organization,
+        on_delete=models.CASCADE,
+        related_name="organization_users",
+        verbose_name=_('organization')
+    )
+    role = models.ForeignKey(
+        OrgRole,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name=_('organization user role')
+    )
+    permissions = models.ManyToManyField(
+        OrgPermissions,
+        blank=True,
+        verbose_name=_('organization user permissions')
+    )
+
+    def __str__(self):
+        return f"{self.user.email} - {self.organization.name}"
+
+    class Meta:
+        verbose_name = _('organization user')
+        verbose_name_plural = _('organization users')
+        db_table = 'org_organization_users'
+
+
