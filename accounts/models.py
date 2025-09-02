@@ -161,17 +161,15 @@ class SubscriptionPlanFeature(models.Model):
 class Organization(AbstractBaseOrganization):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     name = models.CharField(verbose_name=_('organization name'), max_length=100, unique=True)
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name='owned_organizations',
-        verbose_name=_('owner')
+    is_org = models.BooleanField(
+        default=True,
+        verbose_name=_('is organization')
     )
+    first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
+    last_name = models.CharField(verbose_name=_('Last name'), max_length=60, blank=True, null=True)
     logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
-    legal_id_name = models.CharField(verbose_name=_('legal ID name'), max_length=50)  # ex: SIRET
-    legal_id = models.CharField(verbose_name=_('legal ID value'), max_length=50)
+    legal_id_name = models.CharField(verbose_name=_('legal ID name'), max_length=50, blank=True, null=True)  # ex: SIRET
+    legal_id = models.CharField(verbose_name=_('legal ID value'), max_length=50, blank=True, null=True)
     subscription_plan = models.ForeignKey(
         SubscriptionPlan, 
         on_delete=models.SET_NULL, 
