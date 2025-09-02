@@ -8,12 +8,10 @@ from django.contrib.auth.models import (
 )
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from organizations.base import (
-    AbstractBaseOrganizationUser, 
-    AbstractBaseOrganization
-)
 from django_countries.fields import CountryField
 from django_quill.fields import QuillField
+from django.utils import timezone
+from django.utils.text import slugify
 
 # --------------------------
 # Custom User
@@ -158,13 +156,12 @@ class SubscriptionPlanFeature(models.Model):
 # --------------------------
 # Organization
 # --------------------------
-class Organization(AbstractBaseOrganization):
+class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     name = models.CharField(verbose_name=_('organization name'), max_length=100, unique=True)
-    is_org = models.BooleanField(
-        default=True,
-        verbose_name=_('is organization')
-    )
+    slug = models.CharField(max_length=100, null=True, unique=True, db_index=True)
+    is_org = models.BooleanField(default=True, verbose_name=_('is organization'))
+    owner = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='owned_organizations')
     first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
     last_name = models.CharField(verbose_name=_('Last name'), max_length=60, blank=True, null=True)
     logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
@@ -181,6 +178,7 @@ class Organization(AbstractBaseOrganization):
     country = CountryField(verbose_name=_('country'), blank=True, null=True)
     address = models.CharField(verbose_name=_('address'), max_length=200)
     created_at = models.DateTimeField(verbose_name=_('creation date'), auto_now_add=True)
+    users = models.ManyToManyField(CustomUser, through='accounts.OrganizationUser')
 
     def __str__(self):
         return self.name
@@ -188,13 +186,22 @@ class Organization(AbstractBaseOrganization):
     class Meta:
         verbose_name = _('organization')
         verbose_name_plural = _('organizations')
-        db_table = 'org_organizations'
+        db_table = 'organizations'
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = slugify(self.name)
+        else:
+            old_name = Organization.objects.only("name").get(pk=self.pk).name
+            if old_name != self.name:
+                self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
 
 
 # --------------------------
 # OrganizationUser
 # --------------------------
-class OrganizationUser(AbstractBaseOrganizationUser):
+class OrganizationUser(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -227,6 +234,33 @@ class OrganizationUser(AbstractBaseOrganizationUser):
     class Meta:
         verbose_name = _('organization user')
         verbose_name_plural = _('organization users')
-        db_table = 'org_organization_users'
+        db_table = 'organization_users'
 
 
+class OrganizationInvitation(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    organization = models.ForeignKey(
+        'Organization', 
+        on_delete=models.CASCADE, 
+        related_name='invitations'
+    )
+    email = models.EmailField()
+    token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, db_index=True)
+    invited_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='sent_invitations'
+    )
+    accepted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(null=True, blank=True)  # optionnel
+
+    def is_expired(self):
+        if self.expires_at:
+            return timezone.now() > self.expires_at
+        return False
+
+    def __str__(self):
+        return f"{self.email} invited to {self.organization.name}"

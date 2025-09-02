@@ -1,7 +1,12 @@
-from django.contrib import admin
-from accounts.models import CustomUser
-from .models import Organization
-from organizations.models import Organization as OrgDefault
+"""from django.contrib import admin
+from accounts.models import (
+    CustomUser, Organization, 
+    # OrganizationInvitation, OrgRole ,
+    OrganizationUser, OrgPermissions, 
+    SubscriptionPlan, SubscriptionPlanFeature,
+    Feature
+    )
+
 
 # Register your models here.
 
@@ -19,12 +24,5 @@ class OrganizationAdmin(admin.ModelAdmin):
         'country', 'address'
     )
 
-# Désenregistrer l'admin par défaut
-
-admin.site.unregister(OrgDefault)
-
-# Enregistrer le custom admin
 admin.site.register(Organization, OrganizationAdmin)
-
-
-admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)"""

@@ -16,13 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
-from organizations.backends import invitation_backend
 from accounts.views import index_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    re_path(r'^accounts/', include('organizations.urls')),
-    re_path(r'^invitations/', include(invitation_backend().get_urls())),
     path('', index_view, name='home'),
 ]

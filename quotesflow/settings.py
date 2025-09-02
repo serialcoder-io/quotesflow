@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'organizations',
     'django_extensions',
     'accounts'
 ]
@@ -162,9 +161,6 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
-#django-organization
-REGISTRATION_BACKEND = 'organizations.backends.defaults.RegistrationBackend'
 
 # USER MODEL #
 AUTH_USER_MODEL = 'accounts.CustomUser'
