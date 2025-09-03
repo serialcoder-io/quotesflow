@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'django_extensions',
-    'accounts'
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -58,7 +58,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
+    'allauth.account.middleware.AccountMiddleware',
+    'accounts.middleware.ForceOrganizationMiddleware',
 ]
 
 ROOT_URLCONF = 'quotesflow.urls'

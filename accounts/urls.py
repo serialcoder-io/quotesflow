@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import include, path
+from accounts.views import CustomLoginView, create_organization
 
-url_patters = [
-    
+urlpatterns = [
+    path("organizations/create/", create_organization, name="create_organization"),
 ]
