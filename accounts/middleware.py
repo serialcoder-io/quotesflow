@@ -12,20 +12,23 @@ class ForceOrganizationMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        # Ignorer les utilisateurs non authentifiés
         if request.user.is_authenticated:
-            # URLs à ignorer pour éviter les boucles
             exempt_urls = [
                 reverse('create_organization'),
                 reverse('account_logout'),
                 reverse('account_login'),
-                '/admin/'  # éventuellement d'autres URLs à ignorer
             ]
-            
+
+            # Vérifie si l'URL est exemptée
+            is_exempt = (
+                request.path in exempt_urls or
+                request.path.startswith('/admin/')
+            )
+
             if (not Organization.objects.filter(owner=request.user).exists() and
                 not OrganizationUser.objects.filter(user=request.user).exists() and
-                request.path not in exempt_urls):
+                not is_exempt):
                 return redirect('create_organization')
 
-        response = self.get_response(request)
-        return response
+        return self.get_response(request)
+

@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion - QuoteFlow Pro</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body class="bg-base-200 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="/" class="flex items-center">
+              <!--
+                <svg
+                class="h-8 w-8 text-primary"
+                viewBox="0 0 32 32"
+                fill="currentColor"
+              >
+                <path d="M4 8h24v2H4V8zm0 6h24v2H4v-2zm0 6h16v2H4v-2z" />
+                <path d="M20 20l8 4-8 4v-8z" />
+              </svg>
+              -->
+              <span class="ml-2 text-xl font-semibold text-gray-900"
+                >QuoteFlow</span
+              >
+            </a>
+          </div>
+
+          <!-- Navigation -->
+          <nav class="hidden md:flex space-x-8">
+            <a
+              href="landing_page.html#features"
+              class="text-gray-600 hover:text-primary transition-micro"
+              >Features</a
+            >
+            <a
+              href="landing_page.html#pricing"
+              class="text-gray-600 hover:text-primary transition-micro"
+              >Tarifs</a
+            >
+            <a
+              href="landing_page.html#testimonials"
+              class="text-gray-600 hover:text-primary transition-micro"
+              >Testimonials</a
+            >
+            <a href="{% url 'account_login' %}l" class="text-primary font-medium">Sign in</a>
+          </nav>
+
+          <!-- CTA Button -->
+          <div class="flex items-center space-x-4">
+            <a href="{% url 'account_signup' %}" class="btn btn-primary shadow-none">
+              Create an account
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main
+      class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="w-full max-w-[400px]">
+        <!-- 
+          <div class="text-center mb-6">
+          <h1 class="text-2xl font-bold">Bon retour !</h1>
+          <p class="text-gray-600">
+            Connectez-vous à votre compte QuoteFlow Pro
+          </p>
+        </div>
+         -->
+
+        <div
+          class="card bg-base-100 border border-neutral-200 hover:shadow-md transition-shadow duration-300 p-6"
+        >
+          <form method="post" action="{% url 'account_login' %}">
+            <!-- Adresse e-mail -->
+            <div class="w-full pb-3">
+              <c-ui.input
+              type="email"
+              label="Email address"
+              required
+              placeholder="your@email.com"
+              message="invalid email"
+              autocomplete="email"
+              name="login"
+            >
+              <c-icons.envelope />
+            </c-ui.input>
+            </div>
+
+            <!-- password -->
+            <c-ui.input_password id="password" name="password" />
+
+            <!-- Options -->
+            <div class="flex justify-between items-center py-6 text-sm">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" class="checkbox checkbox-sm" name="remember" />
+                <span>Remember me</span>
+              </label>
+              <a href="#" class="decoration-0 text-primary"
+                >Forgot password ?</a
+              >
+            </div>
+
+            <!-- Bouton connexion -->
+            <button class="btn btn-primary w-full mb-4 font-bold shadow-none">
+              Login
+            </button>
+
+            <!-- Divider -->
+            <div class="divider text-sm mb-4">OR continue with</div>
+
+            <!-- Google login -->
+            <div class="py-2">
+              <a href="/accounts/google/login/?process=login" type="button" class="btn w-full flex items-center gap-2">
+                <img
+                  src="https://www.svgrepo.com/show/355037/google.svg"
+                  alt="Google"
+                  class="w-5 h-5"
+                />
+                Se connecter avec Google
+              </a>
+            </div>
+
+            <!-- Lien inscription -->
+            <p class="text-center text-sm mt-4">
+              Pas encore de compte ?
+              <a href="{% url 'account_signup' %}" class="decoration-0 text-primary"
+                >Créer un compte gratuit</a
+              >
+            </p>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="flex justify-between mt-4 text-gray-600">
+          <p class="flex items-center gap-1 text-xs">
+            <span class="text-green-500">🔒</span>
+            Secure connection
+          </p>
+          <p class="flex items-center gap-1 text-xs">
+            <span class="text-green-500">✔</span> RGPD Conforme
+          </p>
+          <p class="flex items-center gap-1 text-xs">
+            <span class="text-green-500">🇫🇷</span> Hébergement France
+          </p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
