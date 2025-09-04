@@ -1,10 +1,11 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Connexion - QuoteFlow Pro</title>
+    <title>{% trans "Login - QuoteFlow" %}</title>
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,66 +13,17 @@
   </head>
   <body class="bg-base-200 min-h-screen">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
-          <!-- Logo -->
-          <div class="flex items-center">
-            <a href="/" class="flex items-center">
-              <!--
-                <svg
-                class="h-8 w-8 text-primary"
-                viewBox="0 0 32 32"
-                fill="currentColor"
-              >
-                <path d="M4 8h24v2H4V8zm0 6h24v2H4v-2zm0 6h16v2H4v-2z" />
-                <path d="M20 20l8 4-8 4v-8z" />
-              </svg>
-              -->
-              <span class="ml-2 text-xl font-semibold text-gray-900"
-                >QuoteFlow</span
-              >
-            </a>
-          </div>
-
-          <!-- Navigation -->
-          <nav class="hidden md:flex space-x-8">
-            <a
-              href="landing_page.html#features"
-              class="text-gray-600 hover:text-primary transition-micro"
-              >Features</a
-            >
-            <a
-              href="landing_page.html#pricing"
-              class="text-gray-600 hover:text-primary transition-micro"
-              >Tarifs</a
-            >
-            <a
-              href="landing_page.html#testimonials"
-              class="text-gray-600 hover:text-primary transition-micro"
-              >Testimonials</a
-            >
-            <a href="{% url 'account_login' %}l" class="text-primary font-medium">Sign in</a>
-          </nav>
-
-          <!-- CTA Button -->
-          <div class="flex items-center space-x-4">
-            <c-ui.link_button 
-              text="Create an account" 
-              extra_class="btn-primary" 
-              href="{% url 'account_signup' %}" 
-            />
-          </div>
-        </div>
-      </div>
-    </header>
+    <c-components.navbar />
 
     <!-- Main Content -->
     <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
       {% if form.non_field_errors %}
         <div class="fixed top-18 text-center space-y-2 z-4">
           {% for error in form.non_field_errors %} 
-              <c-ui.alert message="{{ error }}" alert_type="alert-error" > 
+              <c-ui.alert 
+                message="{{ error }}" 
+                alert_type="alert-error"
+              > 
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current text-white" fill="none" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -98,10 +50,10 @@
             <div class="w-full pb-3">
               <c-ui.input
               type="email"
-              label="Email address"
+              label="{% trans 'Email address' %}"
               required
               placeholder="your@email.com"
-              message="invalid email"
+              message="{% trans 'invalid email' %}"
               autocomplete="email"
               name="login"
             >
@@ -110,24 +62,24 @@
             </div>
 
             <!-- password -->
-            <c-ui.input_password id="password" name="password" />
+            <c-ui.input_password id="password" name="password" label="{% trans 'password' %}" />
 
             <!-- Options -->
             <div class="flex justify-between items-center py-6 text-sm">
               <label class="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" class="checkbox checkbox-sm" name="remember" />
-                <span>Remember me</span>
+                <span>{% trans "Remember me" %}</span>
               </label>
-              <a href="{% url 'account_reset_password' %}" class="decoration-0 text-primary"
-                >Forgot password ?</a
-              >
+              <a href="{% url 'account_reset_password' %}" class="decoration-0 text-primary">
+                {% trans "Forgot password ?" %}
+              </a>
             </div>
 
             <!-- Login button -->
-            <c-ui.button text="Login" extra_class="btn-primary" />
+            <c-ui.button text="{% trans 'Sign in' %}" extra_class="btn-primary" />
 
             <!-- Divider -->
-            <div class="divider text-sm mb-4">OR continue with</div>
+            <div class="divider text-sm mb-4">{% trans "OR continue with" %}</div>
 
             <!-- Google login -->
             <div class="py-2">
@@ -137,22 +89,22 @@
                   alt="Google"
                   class="w-5 h-5"
                 />
-                Se connecter avec Google
+                Google
               </a>
             </div>
 
             <!-- Lien inscription -->
             <p class="text-center text-sm mt-4">
-              Pas encore de compte ?
+              {% trans "Not registered yet" %} ?
               <a href="{% url 'account_signup' %}" class="decoration-0 text-primary"
-                >Créer un compte gratuit</a
+                >{% trans "create an account" %}</a
               >
             </p>
           </form>
         </div>
 
-        <!-- Footer -->
-        <div class="flex justify-between mt-4 text-gray-600">
+        <!-- Footer 
+         <div class="flex justify-between mt-4 text-gray-600">
           <p class="flex items-center gap-1 text-xs">
             <span class="text-green-500">🔒</span>
             Secure connection
@@ -164,6 +116,7 @@
             <span class="text-green-500">🇫🇷</span> Hébergement France
           </p>
         </div>
+        -->
       </div>
     </main>
   </body>

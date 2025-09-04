@@ -1,0 +1,311 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-04 18:33+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: accounts/models.py:22
+msgid "The Email field must be set"
+msgstr "Le champ Email doit être renseigné"
+
+#: accounts/models.py:34
+msgid "Superuser must have is_staff=True."
+msgstr "Le superutilisateur doit avoir is_staff=True."
+
+#: accounts/models.py:36
+msgid "Superuser must have is_superuser=True."
+msgstr "Le superutilisateur doit avoir is_superuser=True."
+
+#: accounts/models.py:42 accounts/models.py:72 accounts/models.py:86
+#: accounts/models.py:107 accounts/models.py:128 accounts/models.py:160
+#: accounts/models.py:205
+msgid "ID"
+msgstr "ID"
+
+#: accounts/models.py:43
+msgid "email address"
+msgstr "Adresse e-mail"
+
+#: accounts/models.py:44
+msgid "first name"
+msgstr "Prénom"
+
+#: accounts/models.py:45
+msgid "last name"
+msgstr "Nom"
+
+#: accounts/models.py:46
+msgid "phone number"
+msgstr "Numéro de téléphone"
+
+#: accounts/models.py:47
+msgid "profile photo"
+msgstr "Photo de profil"
+
+#: accounts/models.py:48
+msgid "active"
+msgstr "Actif"
+
+#: accounts/models.py:49
+msgid "staff status"
+msgstr "Statut du personnel"
+
+#: accounts/models.py:50
+msgid "date joined"
+msgstr "Date d'inscription"
+
+#: accounts/models.py:52
+msgid "user groups"
+msgstr "Groupes d'utilisateurs"
+
+#: accounts/models.py:53
+msgid "user permissions"
+msgstr "Permissions de l'utilisateur"
+
+#: accounts/models.py:63 accounts/models.py:210
+msgid "user"
+msgstr "Utilisateur"
+
+#: accounts/models.py:64
+msgid "users"
+msgstr "Utilisateurs"
+
+#: accounts/models.py:73 accounts/models.py:108
+msgid "code"
+msgstr "Code"
+
+#: accounts/models.py:74
+msgid "label"
+msgstr "Étiquette"
+
+#: accounts/models.py:80
+msgid "organization permission"
+msgstr "Permission de l'organisation"
+
+#: accounts/models.py:81
+msgid "organization permissions"
+msgstr "Permissions de l'organisation"
+
+#: accounts/models.py:87
+msgid "role name"
+msgstr "Nom du rôle"
+
+#: accounts/models.py:88
+msgid "permissions"
+msgstr "Permissions"
+
+#: accounts/models.py:94
+msgid "organization role"
+msgstr "Rôle de l'organisation"
+
+#: accounts/models.py:95
+msgid "organization roles"
+msgstr "Rôles de l'organisation"
+
+#: accounts/models.py:109
+msgid "value type"
+msgstr "Type de valeur"
+
+#: accounts/models.py:109
+msgid ""
+"the type of the value: form exp for feature send invoice to client by email, "
+"the type of the the vallue will be true or false"
+msgstr ""
+"Type de la valeur : par ex. pour la fonctionnalité 'envoyer la facture par e-"
+"mail', la valeur sera true ou false"
+
+#: accounts/models.py:110
+msgid "description"
+msgstr "Description"
+
+#: accounts/models.py:122
+msgid "Free"
+msgstr "Gratuit"
+
+#: accounts/models.py:123
+msgid "Starter"
+msgstr "Débutant"
+
+#: accounts/models.py:124
+msgid "Premium"
+msgstr "Premium"
+
+#: accounts/models.py:125
+msgid "Entreprise"
+msgstr "Entreprise"
+
+#: accounts/models.py:129
+msgid "plan name"
+msgstr "Nom du plan"
+
+#: accounts/models.py:143
+msgid "feature"
+msgstr "Fonctionnalité"
+
+#: accounts/models.py:144
+msgid "subscription plan"
+msgstr "Plan d'abonnement"
+
+#: accounts/models.py:145
+msgid "the value of the feature for the plan"
+msgstr "Valeur de la fonctionnalité pour le plan"
+
+#: accounts/models.py:161
+msgid "organization name"
+msgstr "Nom de l'organisation"
+
+#: accounts/models.py:163
+msgid "is organization"
+msgstr "Est une organisation"
+
+#: accounts/models.py:165
+msgid "First name"
+msgstr "Prénom"
+
+#: accounts/models.py:166
+msgid "Last name"
+msgstr "Nom"
+
+#: accounts/models.py:167
+msgid "logo"
+msgstr "Logo"
+
+#: accounts/models.py:168
+msgid "legal ID name"
+msgstr "Nom de l'identifiant légal"
+
+#: accounts/models.py:169
+msgid "legal ID value"
+msgstr "Valeur de l'identifiant légal"
+
+#: accounts/models.py:174
+msgid "Subscription plan"
+msgstr "Plan d'abonnement"
+
+#: accounts/models.py:176
+msgid "subscription start date"
+msgstr "Date de début de l'abonnement"
+
+#: accounts/models.py:177
+msgid "duration in month"
+msgstr "Durée en mois"
+
+#: accounts/models.py:178
+msgid "country"
+msgstr "Pays"
+
+#: accounts/models.py:179
+msgid "address"
+msgstr "Adresse"
+
+#: accounts/models.py:180
+msgid "creation date"
+msgstr "Date de création"
+
+#: accounts/models.py:187 accounts/models.py:216
+msgid "organization"
+msgstr "Organisation"
+
+#: accounts/models.py:188
+msgid "organizations"
+msgstr "Organisations"
+
+#: accounts/models.py:223
+msgid "organization user role"
+msgstr "Rôle de l'utilisateur dans l'organisation"
+
+#: accounts/models.py:228
+msgid "organization user permissions"
+msgstr "Permissions de l'utilisateur dans l'organisation"
+
+#: accounts/models.py:235
+msgid "organization user"
+msgstr "Utilisateur de l'organisation"
+
+#: accounts/models.py:236
+msgid "organization users"
+msgstr "Utilisateurs de l'organisation"
+
+#: quotesflow/settings.py:209
+msgid "English"
+msgstr "Anglais"
+
+#: quotesflow/settings.py:210
+msgid "French"
+msgstr "Français"
+
+#: templates/account/login.html:8
+msgid "Login - QuoteFlow"
+msgstr "Connexion - QuoteFlow"
+
+#: templates/account/login.html:43
+msgid "Features"
+msgstr "Fonctionnalités"
+
+#: templates/account/login.html:48
+msgid "pricing"
+msgstr "Tarifs"
+
+#: templates/account/login.html:53
+msgid "Testimonials"
+msgstr "Témoignages"
+
+#: templates/account/login.html:55 templates/account/login.html:131
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: templates/account/login.html:61
+msgid "Create an account"
+msgstr "Créer un compte"
+
+#: templates/account/login.html:105
+msgid "Email address"
+msgstr "Adresse e-mail"
+
+#: templates/account/login.html:108
+msgid "invalid email"
+msgstr "E-mail invalide"
+
+#: templates/account/login.html:117
+#, fuzzy
+#| msgid "Forgot password ?"
+msgid "password"
+msgstr "Mot de passe oublié ?"
+
+#: templates/account/login.html:123
+msgid "Remember me"
+msgstr "Se souvenir de moi"
+
+#: templates/account/login.html:126
+msgid "Forgot password ?"
+msgstr "Mot de passe oublié ?"
+
+#: templates/account/login.html:134
+msgid "OR continue with"
+msgstr "OU continuer avec"
+
+#: templates/account/login.html:150
+msgid "Not registered yet"
+msgstr "Pas encore inscrit"
+
+#: templates/account/login.html:152
+msgid "create an account"
+msgstr "Créer un compte"
+
+#, python-format
+#~ msgid " %(error)s "
+#~ msgstr " %(error)s "
