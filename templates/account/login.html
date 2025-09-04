@@ -56,18 +56,29 @@
 
           <!-- CTA Button -->
           <div class="flex items-center space-x-4">
-            <a href="{% url 'account_signup' %}" class="btn btn-primary shadow-none">
-              Create an account
-            </a>
+            <c-ui.link_button 
+              text="Create an account" 
+              extra_class="btn-primary" 
+              href="{% url 'account_signup' %}" 
+            />
           </div>
         </div>
       </div>
     </header>
 
     <!-- Main Content -->
-    <main
-      class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-    >
+    <main class="flex-1 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+      {% if form.non_field_errors %}
+        <div class="fixed top-18 text-center space-y-2 z-4">
+          {% for error in form.non_field_errors %} 
+              <c-ui.alert message="{{ error }}" alert_type="alert-error" > 
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current text-white" fill="none" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </c-ui.alert>
+          {% endfor %}
+        </div>
+      {% endif %}
       <div class="w-full max-w-[400px]">
         <!-- 
           <div class="text-center mb-6">
@@ -77,12 +88,13 @@
           </p>
         </div>
          -->
-
+        
         <div
           class="card bg-base-100 border border-neutral-200 hover:shadow-md transition-shadow duration-300 p-6"
         >
           <form method="post" action="{% url 'account_login' %}">
-            <!-- Adresse e-mail -->
+            {% csrf_token %}
+            <!-- Email address -->
             <div class="w-full pb-3">
               <c-ui.input
               type="email"
@@ -106,15 +118,13 @@
                 <input type="checkbox" class="checkbox checkbox-sm" name="remember" />
                 <span>Remember me</span>
               </label>
-              <a href="#" class="decoration-0 text-primary"
+              <a href="{% url 'account_reset_password' %}" class="decoration-0 text-primary"
                 >Forgot password ?</a
               >
             </div>
 
-            <!-- Bouton connexion -->
-            <button class="btn btn-primary w-full mb-4 font-bold shadow-none">
-              Login
-            </button>
+            <!-- Login button -->
+            <c-ui.button text="Login" extra_class="btn-primary" />
 
             <!-- Divider -->
             <div class="divider text-sm mb-4">OR continue with</div>
