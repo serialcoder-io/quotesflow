@@ -4,45 +4,61 @@
 
 {% block title %}
 <title>{% blocktrans %}Create your organization{% endblocktrans %}</title>
-{% endblock %}
+{% endblock %} 
 
 {% block content %}
 <!-- Header -->
 <c-components.navbar>
-  <c-ui.link_button
-    text="{% trans 'Create an account' %}"
-    extra_class="btn-primary"
-    href="{% url 'account_signup' %}"
-  />
+  <!-- Aavatar -->
+    <div class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+        <div class="avatar avatar-placeholder">
+          <div class="bg-primary text-neutral-content w-8 rounded-full">
+            <span class=""> A </span>
+          </div>
+        </div>
+      </div>
+      <ul
+        tabindex="0"
+        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+      >
+        <!--<li>
+          <a href="#" class="justify-between"> Mon Profile </a>
+        </li>-->
+        <li>
+            <a href="{% url 'account_logout' %}" class="text-base-content hover:text-primary transition-micro">
+              {% trans "Logout" %}
+            </a>
+        </li>
+      </ul>
+    </div>
 </c-components.navbar>
 
 <!-- Main Content -->
 <main class="min-h-screen">
   <!-- Page Header -->
   <section class="text-center py-8">
-    <h1 class="text-3xl lg:text-4xl font-semibold text-gray-900 mb-4">
-      {% blocktrans %}Create your QuoteFlow Pro account{% endblocktrans %}
+    <h1 class="text-3xl lg:text-4xl font-semibold text-primary mb-4">
+      {% blocktrans %}Create your organization{% endblocktrans %}
     </h1>
-    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
       {% blocktrans %} 
-        Start managing your quotes and invoices in just a few
-        minutes. 14-day free trial, no credit card required. 
+        Start managing your quotes and invoices in just a few minutes. 14-day free trial, no credit card required. 
       {% endblocktrans %}
     </p>
   </section>
 
   <section class="flex items-center justify-center w-full">
-    <div
-      class="w-full grid grid-cols-1 md:grid-cols-2 gap-10 bg-white shadow-2xl rounded-2xl p-10"
-    >
+    <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
       <!-- Left: Form -->
-      <div class="border">
-        <h2 class="text-2xl font-semibold mb-2">
+      <div class="border border-base-300 p-8 rounded-lg bg-base-100">
+        <h2 class="text-xl font-semibold mb-2">
           {% blocktrans %}Organization Information{% endblocktrans %}
         </h2>
         <p class="text-gray-600 mb-6">
-          {% blocktrans %}Fill out the form to create your organization or
-          personal account{% endblocktrans %}
+          {% blocktrans %}
+            Fill out the form to create your organization
+            {% endblocktrans %}
         </p>
 
         <form method="post" enctype="multipart/form-data" class="space-y-5">
@@ -50,42 +66,31 @@
 
           <!-- is_org -->
           <label class="label cursor-pointer">
-            <span class="label-text font-semibold"
+            <span class="label-text text-md font-semibold"
               >{% blocktrans %}Is this an organization?{% endblocktrans %}</span
             >
             <input
               type="checkbox"
               name="is_org"
               id="is_org"
-              class="toggle toggle-primary"
+              class="toggle toggle-primary checkbox-sm"
               checked
             />
           </label>
 
           <!-- For organization -->
           <div id="org-fields" class="space-y-5">
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">{% trans "Organization name" %}</span>
-              </label>
-              <input
-                type="text"
-                name="name"
-                class="input input-bordered w-full"
-                required
-              />
-            </div>
-            
             <div class="w-full pb-3">
               <c-ui.input
-              type="text"
-              label="{% trans 'Email address' %}"
-              required
-              placeholder="your@email.com"
-              message="{% trans 'invalid email' %}"
-              name=""
+                type="text"
+                label="{% trans 'Organization name' %}"
+                pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.'&,()]+$"
+                required
+                placeholder="Organization name"
+                message="{% trans 'Please enter an organization name' %}"
+                name="org_name"
               >
-              <c-icons.envelope />
+                <c-icons.envelope />
               </c-ui.input>
             </div>
 
@@ -177,31 +182,53 @@
       </div>
 
       <!-- Right: Pricing plans -->
-      <div class="border">
-        <h2 class="text-2xl font-semibold mb-2">
+      <div class="px-4 rounded-lg">
+        <h2 class="text-xl font-semibold mb-2">
           {% blocktrans %}Choose your plan{% endblocktrans %}
         </h2>
-        <p class="text-gray-600 mb-6">
-          {% blocktrans %}Start with a free 14-day trial. No credit card
-          required.{% endblocktrans %}
-        </p>
+        <div class="my-2 p-4 bg-primary/5 rounded-lg">
+            <div class="flex items-start">
+              <svg
+                class="w-5 h-5 text-primary mr-3 mt-0.5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <div>
+                <h4 class="text-sm font-medium text-primary">
+                  Essai gratuit de 14 jours
+                </h4>
+                <p class="text-sm text-base-content mt-1">
+                  {% blocktrans %}Start with a free 14-day trial. No credit card
+                  required. {% endblocktrans %}
+                </p>
+              </div>
+            </div>
+          </div>
 
-        <div class="grid gap-6">
+        <div class="grid gap-4">
           <!-- Plan Free -->
           <label
-            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
-              <input
-                type="radio"
-                name="subscription_plan"
-                value="free"
-                class="radio radio-primary"
-                checked
-              />
-              <h3 class="text-lg font-semibold">
-                {% blocktrans %}Free{% endblocktrans %}
-              </h3>
+              <div class="flex gap-3 items-center">
+                <input
+                  type="radio"
+                  name="subscription_plan"
+                  value="free"
+                  class="radio radio-primary radio-sm"
+                  checked
+                />
+                <h3 class="text-lg font-semibold">
+                  {% blocktrans %}Free{% endblocktrans %}
+                </h3>
+              </div>
               <p class="text-lg font-bold text-blue-600">0€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
                 <li>{% blocktrans %}Basic dashboard{% endblocktrans %}</li>
@@ -213,18 +240,21 @@
 
           <!-- Plan Starter -->
           <label
-            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
-              <input
-                type="radio"
-                name="subscription_plan"
-                value="starter"
-                class="radio radio-primary"
-              />
-              <h3 class="text-lg font-semibold">
-                {% blocktrans %}Starter{% endblocktrans %}
-              </h3>
+              <div class="flex gap-3 items-center">
+                <input
+                  type="radio"
+                  name="subscription_plan"
+                  value="starter"
+                  class="radio radio-primary radio-sm"
+                />
+                <h3 class="text-lg font-semibold">
+                  {% blocktrans %}Starter{% endblocktrans %}
+                </h3>
+                <span class="badge badge-secondary text-white rounded-full">Success</span>
+              </div>
               <p class="text-lg font-bold text-blue-600">29€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
                 <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
@@ -242,22 +272,20 @@
 
           <!-- Plan Premium -->
           <label
-            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
-              <input
-                type="radio"
-                name="subscription_plan"
-                value="premium"
-                class="radio radio-primary"
-              />
-              <h3 class="text-lg font-semibold flex items-center">
-                {% blocktrans %}Premium{% endblocktrans %}
-                <span
-                  class="ml-2 bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded"
-                  >{% blocktrans %}Popular{% endblocktrans %}</span
-                >
-              </h3>
+              <div class="flex gap-3 items-center">
+                <input
+                  type="radio"
+                  name="subscription_plan"
+                  value="premium"
+                  class="radio radio-primary radio-sm"
+                />
+                <h3 class="text-lg font-semibold flex items-center">
+                  {% blocktrans %}Premium{% endblocktrans %}
+                </h3>
+              </div>
               <p class="text-lg font-bold text-blue-600">79€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
                 <li>

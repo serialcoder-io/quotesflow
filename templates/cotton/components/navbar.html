@@ -1,6 +1,6 @@
 {% load static %}
 {% load i18n %}
-<div class="navbar bg-base-100 shadow-sm sticky top-0 z-30">
+<div class="navbar bg-base-100 shadow-sm sticky top-0 z-30 px-6">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -24,22 +24,22 @@
         class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
       >
         <li>
-            <a href="landing_page.html#features" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#features" class="text-base-content hover:text-primary transition-micro">
               {% trans "Features" %}
             </a>
         </li>
         <li>
-            <a href="landing_page.html#pricing" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#pricing" class="text-base-content hover:text-primary transition-micro">
               {% trans "pricing" %}
             </a>
         </li>
         <li>
-            <a href="landing_page.html#testimonials" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#testimonials" class="text-base-content hover:text-primary transition-micro">
               {% trans "Testimonials" %}
             </a>
         </li>
         <li>
-            <a href="{% url 'account_login' %}" class="text-primary font-medium">{% trans "Sign in" %}</a>
+            <a href="{% url 'account_login' %}" class="text-base-content hover:text-primary transition-micro">{% trans "Sign in" %}</a>
         </li>
         <c-components.language_switcher />
       </ul>
@@ -49,22 +49,22 @@
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
        <li>
-            <a href="landing_page.html#features" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#features" class="text-base-content hover:text-primary transition-micro">
               {% trans "Features" %}
             </a>
         </li>
         <li>
-            <a href="landing_page.html#pricing" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#pricing" class="text-base-content hover:text-primary transition-micro">
               {% trans "pricing" %}
             </a>
         </li>
         <li>
-            <a href="landing_page.html#testimonials" class="text-gray-600 hover:text-primary transition-micro">
+            <a href="landing_page.html#testimonials" class="text-base-content hover:text-primary transition-micro">
               {% trans "Testimonials" %}
             </a>
         </li>
         <li>
-            <a href="{% url 'account_login' %}" class="text-primary font-medium">{% trans "Sign in" %}</a>
+            <a href="{% url 'account_login' %}" class="text-base-content hover:text-primary transition-micro">{% trans "Sign in" %}</a>
         </li>
         <c-components.language_switcher />
     </ul>
