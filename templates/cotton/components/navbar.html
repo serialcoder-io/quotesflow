@@ -1,6 +1,6 @@
 {% load static %}
 {% load i18n %}
-<div class="navbar bg-base-100 shadow-sm">
+<div class="navbar bg-base-100 shadow-sm sticky top-0 z-30">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -39,7 +39,7 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'account_login' %}l" class="text-primary font-medium">{% trans "Sign in" %}</a>
+            <a href="{% url 'account_login' %}" class="text-primary font-medium">{% trans "Sign in" %}</a>
         </li>
         <c-components.language_switcher />
       </ul>
@@ -64,16 +64,12 @@
             </a>
         </li>
         <li>
-            <a href="{% url 'account_login' %}l" class="text-primary font-medium">{% trans "Sign in" %}</a>
+            <a href="{% url 'account_login' %}" class="text-primary font-medium">{% trans "Sign in" %}</a>
         </li>
         <c-components.language_switcher />
     </ul>
   </div>
   <div class="navbar-end">
-    <c-ui.link_button
-      text="{% trans 'Create an account' %}"
-      extra_class="btn-primary"
-      href="{% url 'account_signup' %}"
-    />
+    {{slot}}
   </div>
 </div>

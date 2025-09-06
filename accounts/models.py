@@ -48,7 +48,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(verbose_name=_('active'), default=True)
     is_staff = models.BooleanField(verbose_name=_('staff status'), default=False)
     date_joined = models.DateTimeField(verbose_name=_('date joined'), auto_now_add=True)
-
+    has_already_been_org_owner = models.BooleanField(default=False)
+    
     groups = models.ManyToManyField(Group, related_name='customuser_set', blank=True, verbose_name=_('user groups'))
     user_permissions = models.ManyToManyField(Permission, related_name='customuser_set', blank=True, verbose_name=_('user permissions'))
 
@@ -175,6 +176,8 @@ class Organization(models.Model):
     )
     subscription_start = models.DateField(_('subscription start date'), blank=True, null=True)
     subscription_duration = models.PositiveIntegerField(verbose_name=_('duration in month'), default=1)
+    trial_start = models.DateField(_('trial start date'), blank=True, null=True)
+    trial_end = models.DateField(_('trial end date'), blank=True, null=True)
     country = CountryField(verbose_name=_('country'), blank=True, null=True)
     address = models.CharField(verbose_name=_('address'), max_length=200)
     created_at = models.DateTimeField(verbose_name=_('creation date'), auto_now_add=True)

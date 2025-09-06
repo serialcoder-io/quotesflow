@@ -1,13 +1,295 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/output.css' %}">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Create organization</h1>
-</body>
-</html>
+{% load i18n %}
+
+{% block title %}
+<title>{% blocktrans %}Create your organization{% endblocktrans %}</title>
+{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<c-components.navbar>
+  <c-ui.link_button
+    text="{% trans 'Create an account' %}"
+    extra_class="btn-primary"
+    href="{% url 'account_signup' %}"
+  />
+</c-components.navbar>
+
+<!-- Main Content -->
+<main class="min-h-screen">
+  <!-- Page Header -->
+  <section class="text-center py-8">
+    <h1 class="text-3xl lg:text-4xl font-semibold text-gray-900 mb-4">
+      {% blocktrans %}Create your QuoteFlow Pro account{% endblocktrans %}
+    </h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+      {% blocktrans %} 
+        Start managing your quotes and invoices in just a few
+        minutes. 14-day free trial, no credit card required. 
+      {% endblocktrans %}
+    </p>
+  </section>
+
+  <section class="flex items-center justify-center w-full">
+    <div
+      class="w-full grid grid-cols-1 md:grid-cols-2 gap-10 bg-white shadow-2xl rounded-2xl p-10"
+    >
+      <!-- Left: Form -->
+      <div class="border">
+        <h2 class="text-2xl font-semibold mb-2">
+          {% blocktrans %}Organization Information{% endblocktrans %}
+        </h2>
+        <p class="text-gray-600 mb-6">
+          {% blocktrans %}Fill out the form to create your organization or
+          personal account{% endblocktrans %}
+        </p>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-5">
+          {% csrf_token %}
+
+          <!-- is_org -->
+          <label class="label cursor-pointer">
+            <span class="label-text font-semibold"
+              >{% blocktrans %}Is this an organization?{% endblocktrans %}</span
+            >
+            <input
+              type="checkbox"
+              name="is_org"
+              id="is_org"
+              class="toggle toggle-primary"
+              checked
+            />
+          </label>
+
+          <!-- For organization -->
+          <div id="org-fields" class="space-y-5">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">{% trans "Organization name" %}</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
+            
+            <div class="w-full pb-3">
+              <c-ui.input
+              type="text"
+              label="{% trans 'Email address' %}"
+              required
+              placeholder="your@email.com"
+              message="{% trans 'invalid email' %}"
+              name=""
+              >
+              <c-icons.envelope />
+              </c-ui.input>
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text"
+                  >{% trans "Legal ID name (e.g. SIRET)" %}</span
+                >
+              </label>
+              <input
+                type="text"
+                name="legal_id_name"
+                class="input input-bordered w-full"
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">{% trans "Legal ID value" %}</span>
+              </label>
+              <input
+                type="text"
+                name="legal_id"
+                class="input input-bordered w-full"
+              />
+            </div>
+          </div>
+
+          <!-- For individual -->
+          <div id="personal-fields" class="space-y-5 hidden">
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">{% trans "First name" %}</span>
+              </label>
+              <input
+                type="text"
+                name="first_name"
+                class="input input-bordered w-full"
+              />
+            </div>
+
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text">{% trans "Last name" %}</span>
+              </label>
+              <input
+                type="text"
+                name="last_name"
+                class="input input-bordered w-full"
+              />
+            </div>
+          </div>
+
+          <!-- Common fields -->
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">{% trans "Logo (optional)" %}</span>
+            </label>
+            <input
+              type="file"
+              name="logo"
+              class="file-input file-input-bordered w-full"
+            />
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">{% trans "Country" %}</span>
+            </label>
+            {{ form.country }}
+          </div>
+
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">{% trans "Address" %}</span>
+            </label>
+            <input
+              type="text"
+              name="address"
+              class="input input-bordered w-full"
+            />
+          </div>
+
+          <!-- Submit -->
+          <button class="btn btn-primary w-full mt-4 rounded-xl shadow-md">
+            {% blocktrans %}Create organization{% endblocktrans %}
+          </button>
+        </form>
+      </div>
+
+      <!-- Right: Pricing plans -->
+      <div class="border">
+        <h2 class="text-2xl font-semibold mb-2">
+          {% blocktrans %}Choose your plan{% endblocktrans %}
+        </h2>
+        <p class="text-gray-600 mb-6">
+          {% blocktrans %}Start with a free 14-day trial. No credit card
+          required.{% endblocktrans %}
+        </p>
+
+        <div class="grid gap-6">
+          <!-- Plan Free -->
+          <label
+            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+          >
+            <div class="card-body">
+              <input
+                type="radio"
+                name="subscription_plan"
+                value="free"
+                class="radio radio-primary"
+                checked
+              />
+              <h3 class="text-lg font-semibold">
+                {% blocktrans %}Free{% endblocktrans %}
+              </h3>
+              <p class="text-lg font-bold text-blue-600">0€/month</p>
+              <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
+                <li>{% blocktrans %}Basic dashboard{% endblocktrans %}</li>
+                <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
+                <li>{% blocktrans %}Export quotes to PDF{% endblocktrans %}</li>
+              </ul>
+            </div>
+          </label>
+
+          <!-- Plan Starter -->
+          <label
+            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+          >
+            <div class="card-body">
+              <input
+                type="radio"
+                name="subscription_plan"
+                value="starter"
+                class="radio radio-primary"
+              />
+              <h3 class="text-lg font-semibold">
+                {% blocktrans %}Starter{% endblocktrans %}
+              </h3>
+              <p class="text-lg font-bold text-blue-600">29€/month</p>
+              <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
+                <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
+                <li>{% blocktrans %}Advanced dashboard{% endblocktrans %}</li>
+                <li>
+                  {% blocktrans %}Transform quotes into invoices{% endblocktrans
+                  %}
+                </li>
+                <li>
+                  {% blocktrans %}Priority email support{% endblocktrans %}
+                </li>
+              </ul>
+            </div>
+          </label>
+
+          <!-- Plan Premium -->
+          <label
+            class="card border shadow-sm rounded-xl cursor-pointer hover:shadow-lg hover:border-blue-400 transition"
+          >
+            <div class="card-body">
+              <input
+                type="radio"
+                name="subscription_plan"
+                value="premium"
+                class="radio radio-primary"
+              />
+              <h3 class="text-lg font-semibold flex items-center">
+                {% blocktrans %}Premium{% endblocktrans %}
+                <span
+                  class="ml-2 bg-blue-100 text-blue-700 text-xs px-2 py-0.5 rounded"
+                  >{% blocktrans %}Popular{% endblocktrans %}</span
+                >
+              </h3>
+              <p class="text-lg font-bold text-blue-600">79€/month</p>
+              <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
+                <li>
+                  {% blocktrans %}Everything in Starter{% endblocktrans %}
+                </li>
+                <li>{% blocktrans %}Team management{% endblocktrans %}</li>
+                <li>{% blocktrans %}API integration{% endblocktrans %}</li>
+                <li>
+                  {% blocktrans %}Dedicated 24/7 support{% endblocktrans %}
+                </li>
+              </ul>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %} {% block extra_script %}
+<script>
+  const isOrgCheckbox = document.getElementById("is_org");
+  const orgFields = document.getElementById("org-fields");
+  const personalFields = document.getElementById("personal-fields");
+
+  isOrgCheckbox.addEventListener("change", () => {
+    if (isOrgCheckbox.checked) {
+      orgFields.classList.remove("hidden");
+      personalFields.classList.add("hidden");
+    } else {
+      orgFields.classList.add("hidden");
+      personalFields.classList.remove("hidden");
+    }
+  });
+</script>
+{% endblock %}
