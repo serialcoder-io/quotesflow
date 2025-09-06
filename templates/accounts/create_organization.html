@@ -10,28 +10,7 @@
 <!-- Header -->
 <c-components.navbar>
   <!-- Aavatar -->
-    <div class="dropdown dropdown-end">
-      <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
-        <div class="avatar avatar-placeholder">
-          <div class="bg-primary text-neutral-content w-8 rounded-full">
-            <span class=""> A </span>
-          </div>
-        </div>
-      </div>
-      <ul
-        tabindex="0"
-        class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-      >
-        <!--<li>
-          <a href="#" class="justify-between"> Mon Profile </a>
-        </li>-->
-        <li>
-            <a href="{% url 'account_logout' %}" class="text-base-content hover:text-primary transition-micro">
-              {% trans "Logout" %}
-            </a>
-        </li>
-      </ul>
-    </div>
+  <c-components.avatar />
 </c-components.navbar>
 
 <!-- Main Content -->
@@ -80,104 +59,85 @@
 
           <!-- For organization -->
           <div id="org-fields" class="space-y-5">
-            <div class="w-full pb-3">
-              <c-ui.input
-                type="text"
-                label="{% trans 'Organization name' %}"
-                pattern="^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s\-\.'&,()]+$"
-                required
-                placeholder="Organization name"
-                message="{% trans 'Please enter an organization name' %}"
-                name="org_name"
-              >
-                <c-icons.envelope />
-              </c-ui.input>
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.name.label}}">
+                <c-slot name="icon">
+                  <c-icons.building_office />
+                </c-slot>
+                <c-slot name="input">{{form.name}}</c-slot>
+              </c-ui.django_form_input>
             </div>
 
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text"
-                  >{% trans "Legal ID name (e.g. SIRET)" %}</span
-                >
-              </label>
-              <input
-                type="text"
-                name="legal_id_name"
-                class="input input-bordered w-full"
-              />
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.legal_id_name.label}}">
+                <c-slot name="icon">
+                  <c-icons.tag />
+                </c-slot>
+                <c-slot name="input">{{form.legal_id_name}}</c-slot>
+              </c-ui.django_form_input>
             </div>
 
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">{% trans "Legal ID value" %}</span>
-              </label>
-              <input
-                type="text"
-                name="legal_id"
-                class="input input-bordered w-full"
-              />
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.legal_id.label}}">
+                <c-slot name="icon">
+                  <c-icons.fingerprint />
+                </c-slot>
+                <c-slot name="input">{{form.legal_id}}</c-slot>
+              </c-ui.django_form_input>
             </div>
           </div>
 
           <!-- For individual -->
           <div id="personal-fields" class="space-y-5 hidden">
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">{% trans "First name" %}</span>
-              </label>
-              <input
-                type="text"
-                name="first_name"
-                class="input input-bordered w-full"
-              />
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.first_name.label}}">
+                <c-slot name="icon">
+                  <c-icons.user />
+                </c-slot>
+                <c-slot name="input">{{form.first_name}}</c-slot>
+              </c-ui.django_form_input>
             </div>
 
-            <div class="form-control">
-              <label class="label">
-                <span class="label-text">{% trans "Last name" %}</span>
-              </label>
-              <input
-                type="text"
-                name="last_name"
-                class="input input-bordered w-full"
-              />
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.last_name.label}}">
+                <c-slot name="icon">
+                  <c-icons.user />
+                </c-slot>
+                <c-slot name="input">{{form.last_name}}</c-slot>
+              </c-ui.django_form_input>
             </div>
           </div>
 
           <!-- Common fields -->
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">{% trans "Logo (optional)" %}</span>
-            </label>
-            <input
-              type="file"
-              name="logo"
-              class="file-input file-input-bordered w-full"
-            />
+          <div class="w-full">
+            <c-ui.django_form_input label="{{form.logo.label}}">
+              <c-slot name="icon">
+                <c-icons.file_image />
+              </c-slot>
+              <c-slot name="input">{{form.logo}}</c-slot>
+            </c-ui.django_form_input>
           </div>
 
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">{% trans "Country" %}</span>
-            </label>
-            {{ form.country }}
+          <div class="w-full">
+            <c-ui.django_form_input label="{{form.country.label}}">
+              <c-slot name="icon">
+                <c-icons.globe />
+              </c-slot>
+              <c-slot name="input">{{form.country}}</c-slot>
+            </c-ui.django_form_input>
           </div>
 
-          <div class="form-control">
-            <label class="label">
-              <span class="label-text">{% trans "Address" %}</span>
-            </label>
-            <input
-              type="text"
-              name="address"
-              class="input input-bordered w-full"
-            />
+          <div class="w-full">
+            <c-ui.django_form_input label="{{form.address.label}}">
+              <c-slot name="icon">
+                <c-icons.map_pin />
+              </c-slot>
+              <c-slot name="input">{{form.address}}</c-slot>
+            </c-ui.django_form_input>
           </div>
 
           <!-- Submit -->
-          <button class="btn btn-primary w-full mt-4 rounded-xl shadow-md">
-            {% blocktrans %}Create organization{% endblocktrans %}
-          </button>
+          <c-ui.button text="{% trans 'Submit' %}" extra_class="btn-primary" />
         </form>
       </div>
 
@@ -253,7 +213,7 @@
                 <h3 class="text-lg font-semibold">
                   {% blocktrans %}Starter{% endblocktrans %}
                 </h3>
-                <span class="badge badge-secondary text-white rounded-full">Success</span>
+                <span class="badge badge-secondary text-white rounded-full">{% trans "Popular" %}</span>
               </div>
               <p class="text-lg font-bold text-blue-600">29€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
@@ -286,7 +246,9 @@
                   {% blocktrans %}Premium{% endblocktrans %}
                 </h3>
               </div>
-              <p class="text-lg font-bold text-blue-600">79€/month</p>
+              <p class="font-bold">
+                <span class="text-primary text-lg">79€</span><span class="text-base-content/50 text-md">/month</span>
+              </p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
                 <li>
                   {% blocktrans %}Everything in Starter{% endblocktrans %}

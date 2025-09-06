@@ -4,10 +4,6 @@ from django.urls import reverse
 from accounts.models import Organization, OrganizationUser
 
 class ForceOrganizationMiddleware:
-    """
-    Force un utilisateur connecté à créer ou rejoindre une organisation
-    s'il n'est membre d'aucune organisation et n'en possède aucune.
-    """
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -17,11 +13,12 @@ class ForceOrganizationMiddleware:
                 reverse('create_organization'),
                 reverse('account_logout'),
                 reverse('account_login'),
+                reverse('admin:index'),  # admin home
             ]
 
             # Vérifie si l'URL est exemptée
             is_exempt = (
-                request.path in exempt_urls or
+                any(request.path.startswith(url) for url in exempt_urls) or
                 request.path.startswith('/admin/')
             )
 

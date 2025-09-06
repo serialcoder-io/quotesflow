@@ -12,6 +12,7 @@ from django_countries.fields import CountryField
 from django_quill.fields import QuillField
 from django.utils import timezone
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 
 # --------------------------
 # Custom User
@@ -159,15 +160,15 @@ class SubscriptionPlanFeature(models.Model):
 # --------------------------
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
-    name = models.CharField(verbose_name=_('organization name'), max_length=100, unique=True)
+    name = models.CharField(verbose_name=_('organization name'), max_length=100, blank=True, null=True)
     slug = models.CharField(max_length=100, null=True, unique=True, db_index=True)
     is_org = models.BooleanField(default=True, verbose_name=_('is organization'))
     owner = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='owned_organizations')
     first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
     last_name = models.CharField(verbose_name=_('Last name'), max_length=60, blank=True, null=True)
     logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
-    legal_id_name = models.CharField(verbose_name=_('legal ID name'), max_length=50, blank=True, null=True)  # ex: SIRET
-    legal_id = models.CharField(verbose_name=_('legal ID value'), max_length=50, blank=True, null=True)
+    legal_id_name = models.CharField(verbose_name=_('Type of legal ID'), max_length=50, blank=True, null=True)  # ex: SIRET
+    legal_id = models.CharField(verbose_name=_('legal ID number'), max_length=50, blank=True, null=True)
     subscription_plan = models.ForeignKey(
         SubscriptionPlan, 
         on_delete=models.SET_NULL, 
@@ -176,6 +177,7 @@ class Organization(models.Model):
     )
     subscription_start = models.DateField(_('subscription start date'), blank=True, null=True)
     subscription_duration = models.PositiveIntegerField(verbose_name=_('duration in month'), default=1)
+    subscription_end = models.DateField(_('subscription end date'), blank=True, null=True)
     trial_start = models.DateField(_('trial start date'), blank=True, null=True)
     trial_end = models.DateField(_('trial end date'), blank=True, null=True)
     country = CountryField(verbose_name=_('country'), blank=True, null=True)
@@ -187,9 +189,18 @@ class Organization(models.Model):
         return self.name
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name'], condition=models.Q(is_org=True), name='unique_org_name')
+        ]
         verbose_name = _('organization')
         verbose_name_plural = _('organizations')
         db_table = 'organizations'
+    
+    def clean(self):
+        if self.is_org and not self.name:
+            raise ValidationError({'name': _('Organization name is required.')})
+        if not self.is_org and (not self.first_name or not self.last_name):
+            raise ValidationError(_('First name and last name are required for individuals.'))
 
     def save(self, *args, **kwargs):
         if not self.pk:

@@ -1,0 +1,26 @@
+{% load i18n %}
+<div class="dropdown dropdown-end">
+  <div tabindex="0" role="button" class="btn btn-ghost btn-circle">
+    <div class="avatar avatar-placeholder">
+      <div class="bg-primary text-neutral-content w-8 rounded-full">
+        <span class=""> A </span>
+      </div>
+    </div>
+  </div>
+  <ul
+    tabindex="0"
+    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+  >
+    <!--<li>
+          <a href="#" class="justify-between"> Mon Profile </a>
+        </li>-->
+    <li>
+      <a
+        href="{% url 'account_logout' %}"
+        class="text-base-content hover:text-primary transition-micro"
+      >
+        {% trans "Logout" %}
+      </a>
+    </li>
+  </ul>
+</div>

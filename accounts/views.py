@@ -3,6 +3,7 @@ from allauth.account.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import Organization, OrganizationUser
+from .forms import OrganizationModelForm
 
 
 def index_view(request):
@@ -17,5 +18,15 @@ class CustomLoginView(LoginView):
         # Sinon, redirige vers la home (ou LOGIN_REDIRECT_URL)
         return super().get_success_url()
 
+
 def create_organization(request):
-    return render(request, 'accounts/create_organization.html')
+    if request.method == "POST":
+        form = OrganizationModelForm(request.POST, request.FILES)
+        print(form.is_valid())
+        if form.errors:
+            for err in form.errors:
+                print(err)
+    else:
+        form = OrganizationModelForm()
+
+    return render(request, "accounts/create_organization.html", {"form": form})
