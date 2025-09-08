@@ -20,11 +20,13 @@
     <h1 class="text-3xl lg:text-4xl font-semibold text-primary mb-4">
       {% blocktrans %}Create your organization{% endblocktrans %}
     </h1>
-    <p class="text-lg text-base-content max-w-2xl mx-auto">
-      {% blocktrans %} 
-        Start managing your quotes and invoices in just a few minutes. Enjoy a full-feature 15-days free trial, no credit card required.
-      {% endblocktrans %}
-    </p>
+    {% if not request.user.has_already_been_org_owner %}
+      <p class="text-lg text-base-content max-w-2xl mx-auto">
+        {% blocktrans %} 
+          Start managing your quotes and invoices in just a few minutes. Enjoy a full-feature 15-days free trial, no credit card required.
+        {% endblocktrans %}
+      </p>
+    {% endif %}
   </section>
 
   <section class="flex items-center justify-center w-full">

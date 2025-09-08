@@ -9,6 +9,7 @@ from django.contrib.auth.models import (
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django_countries.fields import CountryField
+from phonenumber_field.modelfields import PhoneNumberField
 from django_quill.fields import QuillField
 from django.utils import timezone
 from django.utils.text import slugify
@@ -161,7 +162,7 @@ class SubscriptionPlanFeature(models.Model):
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     name = models.CharField(verbose_name=_('organization name'), max_length=100, blank=True, null=True)
-    slug = models.CharField(max_length=100, null=True, unique=True, db_index=True)
+    slug = models.CharField(max_length=100, null=True, blank=True, db_index=True)
     is_org = models.BooleanField(default=True, verbose_name=_('is organization'))
     owner = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='owned_organizations')
     first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
@@ -182,6 +183,8 @@ class Organization(models.Model):
     trial_end = models.DateField(_('trial end date'), blank=True, null=True)
     country = CountryField(verbose_name=_('country'), blank=True, null=True)
     address = models.CharField(verbose_name=_('address'), max_length=200)
+    email = models.EmailField(verbose_name=_("Organization email"), blank=True, null=True)
+    contact = PhoneNumberField(verbose_name=_("Phone number"), blank=True, null=True)
     created_at = models.DateTimeField(verbose_name=_('creation date'), auto_now_add=True)
     users = models.ManyToManyField(CustomUser, through='accounts.OrganizationUser')
 
@@ -203,12 +206,19 @@ class Organization(models.Model):
             raise ValidationError(_('First name and last name are required for individuals.'))
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            self.slug = slugify(self.name)
-        else:
-            old_name = Organization.objects.only("name").get(pk=self.pk).name
-            if old_name != self.name:
+        if self.pk:
+            # Update : récupérer l'ancien nom
+            try:
+                old_name = Organization.objects.only("name").get(pk=self.pk).name
+            except Organization.DoesNotExist:
+                old_name = None
+            # Si le nom a changé, mettre à jour le slug
+            if old_name and old_name != self.name:
                 self.slug = slugify(self.name)
+        else:
+            # Création : générer le slug
+            self.slug = slugify(self.name)
+
         super().save(*args, **kwargs)
 
 
@@ -280,3 +290,29 @@ class OrganizationInvitation(models.Model):
 
     def __str__(self):
         return f"{self.email} invited to {self.organization.name}"
+    
+
+
+class Customer(models.Model):
+    organization = models.ForeignKey(
+        'Organization', 
+        on_delete=models.CASCADE, 
+        related_name="customers",
+        verbose_name=_("Organisation")
+    )
+    is_company = models.BooleanField(default=False, verbose_name=_("Is a company"))
+    name = models.CharField(max_length=200, verbose_name=_("Customer name"), blank=True, null=True)
+    first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
+    last_name = models.CharField(verbose_name=_('Last name'), max_length=60, blank=True, null=True)
+    email = models.EmailField(verbose_name=_("Email"))
+    contact = PhoneNumberField(verbose_name=_("Phone number"), blank=True, null=True)
+    address = models.CharField(max_length=250, verbose_name=_("Adresse"), blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Date de création"))
+
+    class Meta:
+        db_table = "customer"
+        verbose_name = _("Customer")
+        verbose_name_plural = _("Customers")
+
+    def __str__(self):
+        return self.name or f"{self.first_name} {self.last_name}"
