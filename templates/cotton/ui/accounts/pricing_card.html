@@ -1,0 +1,24 @@
+<label
+  class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
+>
+  <div class="card-body">
+    <div class="flex gap-3 items-center">
+      <input
+        type="radio"
+        name="subscription_plan"
+        value="free"
+        class="radio radio-primary radio-sm"
+        checked
+      />
+      <h3 class="text-lg font-semibold">
+        {% blocktrans %}Free{% endblocktrans %}
+      </h3>
+    </div>
+    <p class="text-lg font-bold text-blue-600">0€/month</p>
+    <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
+      <li>{% blocktrans %}Basic dashboard{% endblocktrans %}</li>
+      <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
+      <li>{% blocktrans %}Export quotes to PDF{% endblocktrans %}</li>
+    </ul>
+  </div>
+</label>

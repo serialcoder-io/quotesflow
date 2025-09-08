@@ -20,9 +20,9 @@
     <h1 class="text-3xl lg:text-4xl font-semibold text-primary mb-4">
       {% blocktrans %}Create your organization{% endblocktrans %}
     </h1>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+    <p class="text-lg text-base-content max-w-2xl mx-auto">
       {% blocktrans %} 
-        Start managing your quotes and invoices in just a few minutes. 14-day free trial, no credit card required. 
+        Start managing your quotes and invoices in just a few minutes. Enjoy a full-feature 15-days free trial, no credit card required.
       {% endblocktrans %}
     </p>
   </section>
@@ -30,7 +30,7 @@
   <section class="flex items-center justify-center w-full">
     <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-4 p-6">
       <!-- Left: Form -->
-      <div class="border border-base-300 p-8 rounded-lg bg-base-100">
+      <div class="border border-base-300 p-8 rounded-lg bg-base-100 max-h-auto">
         <h2 class="text-xl font-semibold mb-2">
           {% blocktrans %}Organization Information{% endblocktrans %}
         </h2>
@@ -56,37 +56,7 @@
               checked
             />
           </label>
-
-          <!-- For organization -->
-          <div id="org-fields" class="space-y-5">
-            <div class="w-full">
-              <c-ui.django_form_input label="{{form.name.label}}">
-                <c-slot name="icon">
-                  <c-icons.building_office />
-                </c-slot>
-                <c-slot name="input">{{form.name}}</c-slot>
-              </c-ui.django_form_input>
-            </div>
-
-            <div class="w-full">
-              <c-ui.django_form_input label="{{form.legal_id_name.label}}">
-                <c-slot name="icon">
-                  <c-icons.tag />
-                </c-slot>
-                <c-slot name="input">{{form.legal_id_name}}</c-slot>
-              </c-ui.django_form_input>
-            </div>
-
-            <div class="w-full">
-              <c-ui.django_form_input label="{{form.legal_id.label}}">
-                <c-slot name="icon">
-                  <c-icons.fingerprint />
-                </c-slot>
-                <c-slot name="input">{{form.legal_id}}</c-slot>
-              </c-ui.django_form_input>
-            </div>
-          </div>
-
+        
           <!-- For individual -->
           <div id="personal-fields" class="space-y-5 hidden">
             <div class="w-full">
@@ -109,6 +79,14 @@
           </div>
 
           <!-- Common fields -->
+           <div class="w-full">
+              <c-ui.django_form_input label="{{form.name.label}}" field_name="name">
+                <c-slot name="icon">
+                  <c-icons.building_office />
+                </c-slot>
+                <c-slot name="input">{{form.name}}</c-slot>
+              </c-ui.django_form_input>
+            </div>
           <div class="w-full">
             <c-ui.django_form_input label="{{form.logo.label}}">
               <c-slot name="icon">
@@ -127,6 +105,28 @@
             </c-ui.django_form_input>
           </div>
 
+          <!-- For organization -->
+          <div id="org-fields" class="space-y-5">
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.legal_id_name.label}}">
+                <c-slot name="icon">
+                  <c-icons.tag />
+                </c-slot>
+                <c-slot name="input">{{form.legal_id_name}}</c-slot>
+              </c-ui.django_form_input>
+            </div>
+
+            <div class="w-full">
+              <c-ui.django_form_input label="{{form.legal_id.label}}">
+                <c-slot name="icon">
+                  <c-icons.fingerprint />
+                </c-slot>
+                <c-slot name="input">{{form.legal_id}}</c-slot>
+              </c-ui.django_form_input>
+            </div>
+          </div>
+
+          <!-- Common fields -->
           <div class="w-full">
             <c-ui.django_form_input label="{{form.address.label}}">
               <c-slot name="icon">
@@ -144,7 +144,7 @@
       <!-- Right: Pricing plans -->
       <div class="px-4 rounded-lg">
         <h2 class="text-xl font-semibold mb-2">
-          {% blocktrans %}Choose your plan{% endblocktrans %}
+          {% trans "pricing" %}
         </h2>
         <div class="my-2 p-4 bg-primary/5 rounded-lg">
             <div class="flex items-start">
@@ -161,11 +161,12 @@
               </svg>
               <div>
                 <h4 class="text-sm font-medium text-primary">
-                  Essai gratuit de 14 jours
+                  {% trans "15-days Free trial" %}
                 </h4>
                 <p class="text-sm text-base-content mt-1">
-                  {% blocktrans %}Start with a free 14-day trial. No credit card
-                  required. {% endblocktrans %}
+                  {% blocktrans %}
+                    Enjoy all Premium features free for 15 days, no credit card required. 
+                  {% endblocktrans %}
                 </p>
               </div>
             </div>
@@ -174,90 +175,68 @@
         <div class="grid gap-4">
           <!-- Plan Free -->
           <label
-            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
+            class="card border border-base-300 shadow-xs rounded-xl hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
               <div class="flex gap-3 items-center">
-                <input
-                  type="radio"
-                  name="subscription_plan"
-                  value="free"
-                  class="radio radio-primary radio-sm"
-                  checked
-                />
                 <h3 class="text-lg font-semibold">
                   {% blocktrans %}Free{% endblocktrans %}
                 </h3>
               </div>
               <p class="text-lg font-bold text-blue-600">0€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
-                <li>{% blocktrans %}Basic dashboard{% endblocktrans %}</li>
-                <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
-                <li>{% blocktrans %}Export quotes to PDF{% endblocktrans %}</li>
+                <li>{% blocktrans %}1 user allowed in the organization{% endblocktrans %}</li>
+                <li>{% blocktrans %}Create quotes{% endblocktrans %}</li>
+                <li>{% blocktrans %}Create invoices{% endblocktrans %}</li>
+                <li>{% blocktrans %}Send PDF quotes by email (limited){% endblocktrans %}</li>
+                <li>{% blocktrans %}Basic dashboard: number of quotes, invoices, accepted quotes, total gains{% endblocktrans %}</li>
               </ul>
             </div>
           </label>
 
           <!-- Plan Starter -->
           <label
-            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
+            class="card border border-base-300 shadow-xs rounded-xl hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
               <div class="flex gap-3 items-center">
-                <input
-                  type="radio"
-                  name="subscription_plan"
-                  value="starter"
-                  class="radio radio-primary radio-sm"
-                />
                 <h3 class="text-lg font-semibold">
                   {% blocktrans %}Starter{% endblocktrans %}
                 </h3>
                 <span class="badge badge-secondary text-white rounded-full">{% trans "Popular" %}</span>
               </div>
-              <p class="text-lg font-bold text-blue-600">29€/month</p>
+              <p class="text-lg font-bold text-blue-600">19€/month</p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
-                <li>{% blocktrans %}Digital signatures{% endblocktrans %}</li>
-                <li>{% blocktrans %}Advanced dashboard{% endblocktrans %}</li>
-                <li>
-                  {% blocktrans %}Transform quotes into invoices{% endblocktrans
-                  %}
-                </li>
-                <li>
-                  {% blocktrans %}Priority email support{% endblocktrans %}
-                </li>
+                <li>{% blocktrans %}Everything in Free{% endblocktrans %}</li>
+                <li>{% blocktrans %}Up to 3 users allowed in the organization{% endblocktrans %}</li>
+                <li>{% blocktrans %}Send PDF quotes and invoices by email without limitation{% endblocktrans %}</li>
+                <li>{% blocktrans %}Secure digital signature links{% endblocktrans %}</li>
+                <li>{% blocktrans %}Transform accepted quotes into invoices automatically{% endblocktrans %}</li>
+                <li>{% blocktrans %}Enhanced dashboard with basic stats{% endblocktrans %}</li>
               </ul>
             </div>
           </label>
 
           <!-- Plan Premium -->
           <label
-            class="card border border-base-300 shadow-xs rounded-xl cursor-pointer hover:shadow-sm transition bg-base-100"
+            class="card border border-base-300 shadow-xs rounded-xl hover:shadow-sm transition bg-base-100"
           >
             <div class="card-body">
               <div class="flex gap-3 items-center">
-                <input
-                  type="radio"
-                  name="subscription_plan"
-                  value="premium"
-                  class="radio radio-primary radio-sm"
-                />
                 <h3 class="text-lg font-semibold flex items-center">
                   {% blocktrans %}Premium{% endblocktrans %}
                 </h3>
               </div>
               <p class="font-bold">
-                <span class="text-primary text-lg">79€</span><span class="text-base-content/50 text-md">/month</span>
+                <span class="text-primary text-lg">49€</span><span class="text-base-content/50 text-md">/month</span>
               </p>
               <ul class="list-disc pl-5 text-sm text-gray-600 mt-2 space-y-1">
-                <li>
-                  {% blocktrans %}Everything in Starter{% endblocktrans %}
-                </li>
-                <li>{% blocktrans %}Team management{% endblocktrans %}</li>
-                <li>{% blocktrans %}API integration{% endblocktrans %}</li>
-                <li>
-                  {% blocktrans %}Dedicated 24/7 support{% endblocktrans %}
-                </li>
+                <li>{% blocktrans %}Everything in Starter{% endblocktrans %}</li>
+                <li>{% blocktrans %}Unlimited users allowed in the organization{% endblocktrans %}</li>
+                <li>{% blocktrans %}Advanced dashboard with detailed stats and graphs{% endblocktrans %}</li>
+                <li>{% blocktrans %}Customizable reports{% endblocktrans %}</li>
+                <li>{% blocktrans %}Automations and advanced alerts{% endblocktrans %}</li>
+                <li>{% blocktrans %}Full user and permissions management{% endblocktrans %}</li>
               </ul>
             </div>
           </label>
@@ -268,18 +247,37 @@
 </main>
 {% endblock %} {% block extra_script %}
 <script>
-  const isOrgCheckbox = document.getElementById("is_org");
-  const orgFields = document.getElementById("org-fields");
-  const personalFields = document.getElementById("personal-fields");
-
-  isOrgCheckbox.addEventListener("change", () => {
+  document.addEventListener("DOMContentLoaded", () =>{
+    const fullNameFields = document.querySelectorAll('input[name="first_name"], input[name="last_name"]')
+    const isOrgCheckbox = document.getElementById("is_org");
+    const orgFields = document.getElementById("org-fields");
+    const personalFields = document.getElementById("personal-fields");
+    const orgNameField = document.querySelector('input[name="name"]');
+    const optionalText = document.querySelector(".optional-text");
     if (isOrgCheckbox.checked) {
-      orgFields.classList.remove("hidden");
-      personalFields.classList.add("hidden");
-    } else {
-      orgFields.classList.add("hidden");
-      personalFields.classList.remove("hidden");
+      optionalText.classList.add("hidden")
+      orgNameField.required = true;
     }
-  });
+
+    isOrgCheckbox.addEventListener("change", () => {
+      if (isOrgCheckbox.checked) {
+        orgFields.classList.remove("hidden");
+        personalFields.classList.add("hidden");
+        orgNameField.required = true;
+        optionalText.classList.add("hidden");
+        fullNameFields.forEach(field => {
+          field.required = false;
+        });
+      } else {
+        orgFields.classList.add("hidden");
+        personalFields.classList.remove("hidden");
+        orgNameField.required = false;
+        optionalText.classList.remove("hidden");
+        fullNameFields.forEach(field => {
+          field.required = true;
+        });
+      }
+    });
+  })
 </script>
 {% endblock %}

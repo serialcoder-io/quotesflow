@@ -23,6 +23,8 @@ def create_organization(request):
     if request.method == "POST":
         form = OrganizationModelForm(request.POST, request.FILES)
         print(form.is_valid())
+        if form.is_valid():
+            print(request.POST)
         if form.errors:
             for err in form.errors:
                 print(err)

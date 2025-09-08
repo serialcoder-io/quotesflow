@@ -19,7 +19,7 @@ class ForceOrganizationMiddleware:
             # Vérifie si l'URL est exemptée
             is_exempt = (
                 any(request.path.startswith(url) for url in exempt_urls) or
-                request.path.startswith('/admin/')
+                request.path.startswith('/admin/') or '/i18n/setlang/', 
             )
 
             if (not Organization.objects.filter(owner=request.user).exists() and

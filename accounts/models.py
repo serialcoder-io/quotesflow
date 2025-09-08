@@ -223,6 +223,8 @@ class OrganizationUser(models.Model):
         related_name="user_organizations",
         verbose_name=_('user')
     )
+    is_active_by_plan = models.BooleanField(default=True, verbose_name=_("active according to subscription plan"))
+    is_active_by_owner = models.BooleanField(default=True, verbose_name=_("active according to owner decision"))
     organization = models.ForeignKey(
         Organization,
         on_delete=models.CASCADE,

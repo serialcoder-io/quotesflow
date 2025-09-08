@@ -1,6 +1,13 @@
+{% load i18n %}
+<c-vars field_name="" />
 <label class="">
   <div class="label pb-1">
-    <span class="label-text text-sm">{{ label }}</span>
+    <span class="label-text text-sm text-base-content">
+      {{ label }} 
+      {% if field_name == "name" %}
+      <span class="optional-text font-bold">({% trans "optional" %})</span>
+      {%endif%}
+    </span>
   </div>
   <div class="w-full relative">
     <div class="absolute top-[11px] p-0 left-3">{{ icon }}</div>
