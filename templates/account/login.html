@@ -32,15 +32,16 @@
       </div>
     {% endif %}
     <div class="w-full max-w-[400px]">
-      <!-- 
-        <div class="text-center mb-6">
-        <h1 class="text-2xl font-bold">Bon retour !</h1>
-        <p class="text-gray-600">
-          Connectez-vous à votre compte QuoteFlow Pro
+      
+      <div class="text-center mb-6">
+        <h1 class="text-2xl text-primary font-bold">{% trans "Welcome" %} !</h1>
+        <p class="text-base-content/60">
+          {% blocktrans %}
+            Login to your quotesflow account
+          {% endblocktrans %}
         </p>
       </div>
-        -->
-      
+        
       <div
         class="card bg-base-100 border border-neutral-200 hover:shadow-md transition-shadow duration-300 p-6"
       >
@@ -102,21 +103,6 @@
           </p>
         </form>
       </div>
-
-      <!-- Footer 
-        <div class="flex justify-between mt-4 text-gray-600">
-        <p class="flex items-center gap-1 text-xs">
-          <span class="text-green-500">🔒</span>
-          Secure connection
-        </p>
-        <p class="flex items-center gap-1 text-xs">
-          <span class="text-green-500">✔</span> RGPD Conforme
-        </p>
-        <p class="flex items-center gap-1 text-xs">
-          <span class="text-green-500">🇫🇷</span> Hébergement France
-        </p>
-      </div>
-      -->
     </div>
   </main>
 {% endblock %}

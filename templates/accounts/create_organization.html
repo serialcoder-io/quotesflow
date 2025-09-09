@@ -21,9 +21,15 @@
       {% blocktrans %}Create your organization{% endblocktrans %}
     </h1>
     {% if not request.user.has_already_been_org_owner %}
-      <p class="text-lg text-base-content max-w-2xl mx-auto">
+      <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
         {% blocktrans %} 
           Start managing your quotes and invoices in just a few minutes. Enjoy a full-feature 15-days free trial, no credit card required.
+        {% endblocktrans %}
+      </p>
+    {% else %}
+      <p class="text-lg text-base-content max-w-2xl mx-auto">
+        {% blocktrans %} 
+          By default, your organization is assigned the Free plan. You may upgrade at any time after creation.
         {% endblocktrans %}
       </p>
     {% endif %}
@@ -36,10 +42,10 @@
         <h2 class="text-xl font-semibold mb-2">
           {% blocktrans %}Organization Information{% endblocktrans %}
         </h2>
-        <p class="text-gray-600 mb-6">
+        <p class="text-base-content/70 mb-6">
           {% blocktrans %}
             Fill out the form to create your organization
-            {% endblocktrans %}
+          {% endblocktrans %}
         </p>
 
         <form method="post" enctype="multipart/form-data" class="space-y-5">
@@ -47,7 +53,7 @@
 
           <!-- is_org -->
           <label class="label cursor-pointer">
-            <span class="label-text text-md font-semibold"
+            <span class="label-text text-base-content text-md font-semibold"
               >{% blocktrans %}Is this an organization?{% endblocktrans %}</span
             >
             <input
@@ -145,10 +151,11 @@
 
       <!-- Right: Pricing plans -->
       <div class="px-4 rounded-lg">
-        <h2 class="text-xl font-semibold mb-2">
+        <h2 class="text-xl text-base-content font-semibold mb-2">
           {% trans "pricing" %}
         </h2>
-        <div class="my-2 p-4 bg-primary/5 rounded-lg">
+        {% if not request.user.has_already_been_org_owner %}
+          <div class="my-2 p-4 bg-primary/10 rounded-lg">
             <div class="flex items-start">
               <svg
                 class="w-5 h-5 text-primary mr-3 mt-0.5"
@@ -173,7 +180,7 @@
               </div>
             </div>
           </div>
-
+        {% endif %}
         <div class="grid gap-4">
           <!-- Plan Free -->
           <label
@@ -227,7 +234,10 @@
           <label
             class="card border border-base-300 shadow-xs rounded-xl hover:shadow-sm transition bg-base-100"
           >
-            <div class="card-body">
+            <div class="card-body relative">
+              {% if not request.user.has_already_been_org_owner %}
+                <span class="badge badge-accent rounded-none rounded-tl-xl text-white absolute top-0 left-0">{% trans "15-days Free trial" %}</span>
+              {% endif %}
               <div class="flex gap-3 items-center">
                 <h3 class="text-lg font-semibold flex items-center">
                   {% blocktrans %}Premium{% endblocktrans %}

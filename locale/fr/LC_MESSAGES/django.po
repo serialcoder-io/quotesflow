@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-04 18:33+0400\n"
+"POT-Creation-Date: 2025-09-09 17:22+0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,294 +17,553 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: accounts/models.py:22
+#: accounts/forms.py:22
+msgid "Organization name"
+msgstr "Nom de l'organisation"
+
+#: accounts/forms.py:23 accounts/models.py:167
+msgid "Organization initials"
+msgstr "Initiales de l'organisation"
+
+#: accounts/forms.py:24 accounts/models.py:175 accounts/models.py:331
+msgid "First name"
+msgstr "Prénom"
+
+#: accounts/forms.py:25 accounts/models.py:176 accounts/models.py:332
+msgid "Last name"
+msgstr "Nom"
+
+#: accounts/forms.py:26
+msgid "Logo"
+msgstr "Logo"
+
+#: accounts/forms.py:27
+msgid "Type of legal ID. (e.g: SIRET)"
+msgstr "Type d'identifiant légal (ex : SIRET)"
+
+#: accounts/forms.py:28
+msgid "Legal ID number"
+msgstr "Numéro d'identifiant légal"
+
+#: accounts/forms.py:35
+msgid "Address"
+msgstr "Adresse"
+
+#: accounts/models.py:24
 msgid "The Email field must be set"
 msgstr "Le champ Email doit être renseigné"
 
-#: accounts/models.py:34
+#: accounts/models.py:36
 msgid "Superuser must have is_staff=True."
 msgstr "Le superutilisateur doit avoir is_staff=True."
 
-#: accounts/models.py:36
+#: accounts/models.py:38
 msgid "Superuser must have is_superuser=True."
 msgstr "Le superutilisateur doit avoir is_superuser=True."
 
-#: accounts/models.py:42 accounts/models.py:72 accounts/models.py:86
-#: accounts/models.py:107 accounts/models.py:128 accounts/models.py:160
-#: accounts/models.py:205
+#: accounts/models.py:44 accounts/models.py:75 accounts/models.py:89
+#: accounts/models.py:110 accounts/models.py:131 accounts/models.py:163
+#: accounts/models.py:244
 msgid "ID"
 msgstr "ID"
 
-#: accounts/models.py:43
+#: accounts/models.py:45
 msgid "email address"
 msgstr "Adresse e-mail"
 
-#: accounts/models.py:44
+#: accounts/models.py:46
 msgid "first name"
 msgstr "Prénom"
 
-#: accounts/models.py:45
+#: accounts/models.py:47
 msgid "last name"
 msgstr "Nom"
 
-#: accounts/models.py:46
+#: accounts/models.py:48
 msgid "phone number"
 msgstr "Numéro de téléphone"
 
-#: accounts/models.py:47
+#: accounts/models.py:49
 msgid "profile photo"
 msgstr "Photo de profil"
 
-#: accounts/models.py:48
+#: accounts/models.py:50
 msgid "active"
 msgstr "Actif"
 
-#: accounts/models.py:49
+#: accounts/models.py:51
 msgid "staff status"
 msgstr "Statut du personnel"
 
-#: accounts/models.py:50
+#: accounts/models.py:52
 msgid "date joined"
 msgstr "Date d'inscription"
 
-#: accounts/models.py:52
+#: accounts/models.py:55
 msgid "user groups"
 msgstr "Groupes d'utilisateurs"
 
-#: accounts/models.py:53
+#: accounts/models.py:56
 msgid "user permissions"
 msgstr "Permissions de l'utilisateur"
 
-#: accounts/models.py:63 accounts/models.py:210
+#: accounts/models.py:66 accounts/models.py:249
 msgid "user"
 msgstr "Utilisateur"
 
-#: accounts/models.py:64
+#: accounts/models.py:67
 msgid "users"
 msgstr "Utilisateurs"
 
-#: accounts/models.py:73 accounts/models.py:108
+#: accounts/models.py:76 accounts/models.py:111
 msgid "code"
 msgstr "Code"
 
-#: accounts/models.py:74
+#: accounts/models.py:77
 msgid "label"
 msgstr "Étiquette"
 
-#: accounts/models.py:80
+#: accounts/models.py:83
 msgid "organization permission"
 msgstr "Permission de l'organisation"
 
-#: accounts/models.py:81
+#: accounts/models.py:84
 msgid "organization permissions"
 msgstr "Permissions de l'organisation"
 
-#: accounts/models.py:87
+#: accounts/models.py:90
 msgid "role name"
 msgstr "Nom du rôle"
 
-#: accounts/models.py:88
+#: accounts/models.py:91
 msgid "permissions"
 msgstr "Permissions"
 
-#: accounts/models.py:94
+#: accounts/models.py:97
 msgid "organization role"
 msgstr "Rôle de l'organisation"
 
-#: accounts/models.py:95
+#: accounts/models.py:98
 msgid "organization roles"
 msgstr "Rôles de l'organisation"
 
-#: accounts/models.py:109
+#: accounts/models.py:112
 msgid "value type"
 msgstr "Type de valeur"
 
-#: accounts/models.py:109
+#: accounts/models.py:112
 msgid ""
 "the type of the value: form exp for feature send invoice to client by email, "
 "the type of the the vallue will be true or false"
 msgstr ""
-"Type de la valeur : par ex. pour la fonctionnalité 'envoyer la facture par e-"
-"mail', la valeur sera true ou false"
+"Type de la valeur : par ex. pour la fonctionnalité 'envoyer la facture par e-mail', la valeur sera true ou false"
 
-#: accounts/models.py:110
+#: accounts/models.py:113
 msgid "description"
 msgstr "Description"
 
-#: accounts/models.py:122
+#: accounts/models.py:125 templates/accounts/create_organization.html:192
+#: templates/cotton/ui/accounts/pricing_card.html:14
 msgid "Free"
 msgstr "Gratuit"
 
-#: accounts/models.py:123
+#: accounts/models.py:126 templates/accounts/create_organization.html:215
 msgid "Starter"
-msgstr "Débutant"
+msgstr "Starter"
 
-#: accounts/models.py:124
+#: accounts/models.py:127 templates/accounts/create_organization.html:240
 msgid "Premium"
 msgstr "Premium"
 
-#: accounts/models.py:125
+#: accounts/models.py:128
 msgid "Entreprise"
 msgstr "Entreprise"
 
-#: accounts/models.py:129
+#: accounts/models.py:132
 msgid "plan name"
 msgstr "Nom du plan"
 
-#: accounts/models.py:143
+#: accounts/models.py:146
 msgid "feature"
 msgstr "Fonctionnalité"
 
-#: accounts/models.py:144
+#: accounts/models.py:147
 msgid "subscription plan"
 msgstr "Plan d'abonnement"
 
-#: accounts/models.py:145
+#: accounts/models.py:148
 msgid "the value of the feature for the plan"
 msgstr "Valeur de la fonctionnalité pour le plan"
 
-#: accounts/models.py:161
+#: accounts/models.py:164
 msgid "organization name"
 msgstr "Nom de l'organisation"
 
-#: accounts/models.py:163
+#: accounts/models.py:171
+msgid ""
+"E.g., \"Org Name Ltd\". If left empty, default initials (ON-LTD) will be "
+"generated. Used for invoices and quotes."
+msgstr "Exemple : \"Org Name Ltd\". Si laissé vide, des initiales par défaut (ON-LTD) seront générées. Utilisé pour les factures et devis."
+
+#: accounts/models.py:173
 msgid "is organization"
 msgstr "Est une organisation"
 
-#: accounts/models.py:165
-msgid "First name"
-msgstr "Prénom"
-
-#: accounts/models.py:166
-msgid "Last name"
-msgstr "Nom"
-
-#: accounts/models.py:167
+#: accounts/models.py:177
 msgid "logo"
 msgstr "Logo"
 
-#: accounts/models.py:168
-msgid "legal ID name"
-msgstr "Nom de l'identifiant légal"
+#: accounts/models.py:178
+msgid "Type of legal ID"
+msgstr "Type d'identifiant légal"
 
-#: accounts/models.py:169
-msgid "legal ID value"
-msgstr "Valeur de l'identifiant légal"
+#: accounts/models.py:179
+msgid "legal ID number"
+msgstr "Numéro d'identifiant légal"
 
-#: accounts/models.py:174
+#: accounts/models.py:184
 msgid "Subscription plan"
 msgstr "Plan d'abonnement"
 
-#: accounts/models.py:176
+#: accounts/models.py:186
 msgid "subscription start date"
 msgstr "Date de début de l'abonnement"
 
-#: accounts/models.py:177
+#: accounts/models.py:187
 msgid "duration in month"
 msgstr "Durée en mois"
 
-#: accounts/models.py:178
+#: accounts/models.py:188
+msgid "subscription end date"
+msgstr "Date de fin de l'abonnement"
+
+#: accounts/models.py:189
+msgid "trial start date"
+msgstr "Date de début de l'essai"
+
+#: accounts/models.py:190
+msgid "trial end date"
+msgstr "Date de fin de l'essai"
+
+#: accounts/models.py:191
 msgid "country"
 msgstr "Pays"
 
-#: accounts/models.py:179
+#: accounts/models.py:192
 msgid "address"
 msgstr "Adresse"
 
-#: accounts/models.py:180
+#: accounts/models.py:193
+msgid "Organization email"
+msgstr "E-mail de l'organisation"
+
+#: accounts/models.py:194 accounts/models.py:334
+msgid "Phone number"
+msgstr "Numéro de téléphone"
+
+#: accounts/models.py:195
 msgid "creation date"
 msgstr "Date de création"
 
-#: accounts/models.py:187 accounts/models.py:216
+#: accounts/models.py:205 accounts/models.py:257
 msgid "organization"
 msgstr "Organisation"
 
-#: accounts/models.py:188
+#: accounts/models.py:206
 msgid "organizations"
 msgstr "Organisations"
 
-#: accounts/models.py:223
+#: accounts/models.py:211
+msgid "Organization name is required."
+msgstr "Le nom de l'organisation est requis."
+
+#: accounts/models.py:213
+msgid "First name and last name are required for individuals."
+msgstr "Le prénom et le nom sont requis pour les particuliers."
+
+#: accounts/models.py:251
+msgid "active according to subscription plan"
+msgstr "Actif selon le plan d'abonnement"
+
+#: accounts/models.py:252
+msgid "active according to owner decision"
+msgstr "Actif selon la décision du propriétaire"
+
+#: accounts/models.py:264
 msgid "organization user role"
 msgstr "Rôle de l'utilisateur dans l'organisation"
 
-#: accounts/models.py:228
+#: accounts/models.py:269
 msgid "organization user permissions"
 msgstr "Permissions de l'utilisateur dans l'organisation"
 
-#: accounts/models.py:235
+#: accounts/models.py:277
 msgid "organization user"
 msgstr "Utilisateur de l'organisation"
 
-#: accounts/models.py:236
+#: accounts/models.py:278
 msgid "organization users"
 msgstr "Utilisateurs de l'organisation"
 
-#: quotesflow/settings.py:209
+#: accounts/models.py:327
+msgid "Organisation"
+msgstr "Organisation"
+
+#: accounts/models.py:329
+msgid "Is a company"
+msgstr "Est une entreprise"
+
+#: accounts/models.py:330
+msgid "Customer name"
+msgstr "Nom du client"
+
+#: accounts/models.py:333
+msgid "Email"
+msgstr "E-mail"
+
+#: accounts/models.py:335
+msgid "Adresse"
+msgstr "Adresse"
+
+#: accounts/models.py:336
+msgid "Date de création"
+msgstr "Date de création"
+
+#: accounts/models.py:340
+msgid "Customer"
+msgstr "Client"
+
+#: accounts/models.py:341
+msgid "Customers"
+msgstr "Clients"
+
+#: quotesflow/settings.py:219
 msgid "English"
 msgstr "Anglais"
 
-#: quotesflow/settings.py:210
+#: quotesflow/settings.py:220
 msgid "French"
 msgstr "Français"
 
-#: templates/account/login.html:8
+#: templates/account/login.html:5
 msgid "Login - QuoteFlow"
 msgstr "Connexion - QuoteFlow"
 
-#: templates/account/login.html:43
-msgid "Features"
-msgstr "Fonctionnalités"
-
-#: templates/account/login.html:48
-msgid "pricing"
-msgstr "Tarifs"
-
-#: templates/account/login.html:53
-msgid "Testimonials"
-msgstr "Témoignages"
-
-#: templates/account/login.html:55 templates/account/login.html:131
-msgid "Sign in"
-msgstr "Se connecter"
-
-#: templates/account/login.html:61
+#: templates/account/login.html:12
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: templates/account/login.html:105
+#: templates/account/login.html:37
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: templates/account/login.html:39
+msgid ""
+"\n"
+"            Login to your quotesflow acount\n"
+"          "
+msgstr "\n            Connectez-vous à votre compte QuotesFlow\n          "
+
+#: templates/account/login.html:54
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: templates/account/login.html:108
+#: templates/account/login.html:57
 msgid "invalid email"
 msgstr "E-mail invalide"
 
-#: templates/account/login.html:117
-#, fuzzy
-#| msgid "Forgot password ?"
+#: templates/account/login.html:66
 msgid "password"
-msgstr "Mot de passe oublié ?"
+msgstr "Mot de passe"
 
-#: templates/account/login.html:123
+#: templates/account/login.html:72
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: templates/account/login.html:126
+#: templates/account/login.html:75
 msgid "Forgot password ?"
 msgstr "Mot de passe oublié ?"
 
-#: templates/account/login.html:134
+#: templates/account/login.html:80 templates/cotton/components/navbar.html:42
+#: templates/cotton/components/navbar.html:67
+msgid "Sign in"
+msgstr "Se connecter"
+
+#: templates/account/login.html:83
 msgid "OR continue with"
 msgstr "OU continuer avec"
 
-#: templates/account/login.html:150
+#: templates/account/login.html:99
 msgid "Not registered yet"
 msgstr "Pas encore inscrit"
 
-#: templates/account/login.html:152
+#: templates/account/login.html:101
 msgid "create an account"
 msgstr "Créer un compte"
 
-#, python-format
-#~ msgid " %(error)s "
-#~ msgstr " %(error)s "
+#: templates/accounts/create_organization.html:6
+#: templates/accounts/create_organization.html:21
+msgid "Create your organization"
+msgstr "Créer votre organisation"
+
+#: templates/accounts/create_organization.html:25
+msgid ""
+" \n"
+"          Start managing your quotes and invoices in just a few minutes. "
+"Enjoy a full-feature 15-days free trial, no credit card required.\n"
+"        "
+msgstr " \n          Commencez à gérer vos devis et factures en quelques minutes. Profitez d'un essai gratuit de 15 jours avec toutes les fonctionnalités, sans carte bancaire requise.\n        "
+
+#: templates/accounts/create_organization.html:31
+msgid ""
+" \n"
+"          By default, your organization is assigned the Free plan. You may "
+"upgrade at any time after creation.\n"
+"        "
+msgstr " \n          Par défaut, votre organisation est assignée au plan Gratuit. Vous pourrez passer à une offre supérieure à tout moment après la création.\n        "
+
+#: templates/accounts/create_organization.html:43
+msgid "Organization Information"
+msgstr "Informations sur l'organisation"
+
+#: templates/accounts/create_organization.html:46
+msgid ""
+"\n"
+"            Fill out the form to create your organization\n"
+"          "
+msgstr "\n            Remplissez le formulaire pour créer votre organisation\n          "
+
+#: templates/accounts/create_organization.html:57
+msgid "Is this an organization?"
+msgstr "S'agit-il d'une organisation ?"
+
+#: templates/accounts/create_organization.html:148
+msgid "Submit"
+msgstr "Valider"
+
+#: templates/accounts/create_organization.html:155
+#: templates/cotton/components/navbar.html:33
+#: templates/cotton/components/navbar.html:58
+msgid "pricing"
+msgstr "Tarifs"
+
+#: templates/accounts/create_organization.html:173
+msgid "15-days Free trial"
+msgstr "Essai gratuit de 15 jours"
+
+#: templates/accounts/create_organization.html:176
+msgid ""
+"\n"
+"                    Enjoy all Premium features free for 15 days, no credit "
+"card required. \n"
+"                  "
+msgstr "\n                    Profitez de toutes les fonctionnalités Premium gratuitement pendant 15 jours, sans carte bancaire requise. \n                  "
+
+#: templates/accounts/create_organization.html:196
+#: templates/accounts/create_organization.html:220
+#: templates/accounts/create_organization.html:244
+msgid "month"
+msgstr "mois"
+
+#: templates/accounts/create_organization.html:199
+msgid "1 user allowed in the organization"
+msgstr "1 utilisateur autorisé dans l'organisation"
+
+#: templates/accounts/create_organization.html:200
+msgid "Create quotes"
+msgstr "Créer des devis"
+
+#: templates/accounts/create_organization.html:201
+msgid "Create invoices"
+msgstr "Créer des factures"
+
+#: templates/accounts/create_organization.html:202
+msgid "Send PDF quotes by email (limited)"
+msgstr "Envoyer des devis PDF par e-mail (limité)"
+
+#: templates/accounts/create_organization.html:203
+msgid ""
+"Basic dashboard: number of quotes, invoices, accepted quotes, total gains"
+msgstr "Tableau de bord basique : nombre de devis, factures, devis acceptés, gains totaux"
+
+#: templates/accounts/create_organization.html:217
+msgid "Popular"
+msgstr "Populaire"
+
+#: templates/accounts/create_organization.html:223
+msgid "Everything in Free"
+msgstr "Tout ce qui est inclus dans Gratuit"
+
+#: templates/accounts/create_organization.html:224
+msgid "Up to 3 users allowed in the organization"
+msgstr "Jusqu'à 3 utilisateurs autorisés dans l'organisation"
+
+#: templates/accounts/create_organization.html:225
+msgid "Send PDF quotes and invoices by email without limitation"
+msgstr "Envoyer des devis et factures PDF par e-mail sans limitation"
+
+#: templates/accounts/create_organization.html:226
+msgid "Secure digital signature links"
+msgstr "Liens de signature numérique sécurisée"
+
+#: templates/accounts/create_organization.html:227
+msgid "Transform accepted quotes into invoices automatically"
+msgstr "Transformer automatiquement les devis acceptés en factures"
+
+#: templates/accounts/create_organization.html:228
+msgid "Enhanced dashboard with basic stats"
+msgstr "Tableau de bord amélioré avec statistiques de base"
+
+#: templates/accounts/create_organization.html:247
+msgid "Everything in Starter"
+msgstr "Tout ce qui est inclus dans Starter"
+
+#: templates/accounts/create_organization.html:248
+msgid "Unlimited users allowed in the organization"
+msgstr "Utilisateurs illimités autorisés dans l'organisation"
+
+#: templates/accounts/create_organization.html:249
+msgid "Advanced dashboard with detailed stats and graphs"
+msgstr "Tableau de bord avancé avec statistiques et graphiques détaillés"
+
+#: templates/accounts/create_organization.html:250
+msgid "Customizable reports"
+msgstr "Rapports personnalisables"
+
+#: templates/accounts/create_organization.html:251
+msgid "Automations and advanced alerts"
+msgstr "Automatisations et alertes avancées"
+
+#: templates/accounts/create_organization.html:252
+msgid "Full user and permissions management"
+msgstr "Gestion complète des utilisateurs et des permissions"
+
+#: templates/cotton/components/avatar.html:22
+msgid "Sign out"
+msgstr "Se déconnecter"
+
+#: templates/cotton/components/navbar.html:28
+#: templates/cotton/components/navbar.html:53
+msgid "Features"
+msgstr "Fonctionnalités"
+
+#: templates/cotton/components/navbar.html:38
+#: templates/cotton/components/navbar.html:63
+msgid "Testimonials"
+msgstr "Témoignages"
+
+#: templates/cotton/ui/accounts/pricing_card.html:19
+msgid "Basic dashboard"
+msgstr "Tableau de bord basique"
+
+#: templates/cotton/ui/accounts/pricing_card.html:20
+msgid "Digital signatures"
+msgstr "Signatures numériques"
+
+#: templates/cotton/ui/accounts/pricing_card.html:21
+msgid "Export quotes to PDF"
+msgstr "Exporter les devis en PDF"
+
+#: templates/cotton/ui/django_form_input.html:8
+msgid "optional"
+msgstr "optionnel"

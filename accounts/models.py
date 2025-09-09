@@ -109,7 +109,7 @@ class ValueTypeChoices(models.TextChoices):
 class Feature(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     code = models.CharField(verbose_name=_('code'), max_length=50, unique=True)
-    value_type = models.CharField(verbose_name=_('value type'), max_length=8, choices=ValueTypeChoices, default=ValueTypeChoices.BOOLEAN, help_text=_('the type of the value: form exp for feature send invoice to client by email, the type of the the vallue will be true or false'))
+    value_type = models.CharField(verbose_name=_('value type'), max_length=8, choices=ValueTypeChoices, default=ValueTypeChoices.BOOLEAN, help_text=_('the type of the value: form exp for feature send invoice to client by email, the type of the the value will be true or false'))
     description = QuillField(verbose_name=_('description'))
 
     class Meta:

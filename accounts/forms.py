@@ -15,11 +15,12 @@ class OrganizationModelForm(forms.ModelForm):
             'legal_id', 
             'subscription_start', 'subscription_end',
             'trial_start', 'trial_end', 
-            'country', 'address'
+            'country', 'address', 'initials'
         ]
         widgets = {
             "is_org": forms.CheckboxInput(attrs={"class": "form-check-input"}),
             "name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Organization name")}),
+            "initials": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Organization initials")}),
             "first_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("First name")}),
             "last_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Last name")}),
             "logo": forms.ClearableFileInput(attrs={"class": input_classes+ " file-input", "placeholder": _("Logo")}),
