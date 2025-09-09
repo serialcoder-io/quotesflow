@@ -163,6 +163,13 @@ class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     name = models.CharField(verbose_name=_('organization name'), max_length=100, blank=True, null=True)
     slug = models.CharField(max_length=100, null=True, blank=True, db_index=True)
+    initials = models.CharField(
+        verbose_name=_('Organization initials'),
+        max_length=12,
+        blank=True,
+        null=True,
+        help_text=_('E.g., "Org Name Ltd". If left empty, default initials (ON-LTD) will be generated. Used for invoices and quotes.')
+    )
     is_org = models.BooleanField(default=True, verbose_name=_('is organization'))
     owner = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='owned_organizations')
     first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
@@ -207,17 +214,25 @@ class Organization(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk:
-            # Update : récupérer l'ancien nom
+            # Update : get old name
             try:
                 old_name = Organization.objects.only("name").get(pk=self.pk).name
             except Organization.DoesNotExist:
                 old_name = None
-            # Si le nom a changé, mettre à jour le slug
+            # if the name has changed, update slug
             if old_name and old_name != self.name:
                 self.slug = slugify(self.name)
         else:
-            # Création : générer le slug
+            # create : generate the slug
             self.slug = slugify(self.name)
+        
+        if not self.initials and self.name:
+            # generate initials
+            words = self.name.split()
+            if len(words) == 1:
+                self.initials = words[0][:5].upper()
+            else:
+                self.initials = ''.join(word[0] for word in words[:5]).upper()
 
         super().save(*args, **kwargs)
 
@@ -255,12 +270,22 @@ class OrganizationUser(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user.email} - {self.organization.name}"
+        org_display = self.organization.name or self.organization.email or str(self.organization.id)
+        return f"{self.user.email} - {org_display}"
 
     class Meta:
         verbose_name = _('organization user')
         verbose_name_plural = _('organization users')
         db_table = 'organization_users'
+        indexes = [
+            # Composite index on 'user' and 'organization'
+            models.Index(fields=['user', 'organization']),
+        ]
+        unique_together = ('user', 'organization')
+    
+    @property
+    def is_active(self):
+        return self.is_active_by_plan and self.is_active_by_owner
 
 
 class OrganizationInvitation(models.Model):
@@ -294,6 +319,7 @@ class OrganizationInvitation(models.Model):
 
 
 class Customer(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     organization = models.ForeignKey(
         'Organization', 
         on_delete=models.CASCADE, 
@@ -313,6 +339,11 @@ class Customer(models.Model):
         db_table = "customer"
         verbose_name = _("Customer")
         verbose_name_plural = _("Customers")
+        indexes = [
+            models.Index(fields=['organization']),
+        ]
 
     def __str__(self):
-        return self.name or f"{self.first_name} {self.last_name}"
+        if self.name:
+            return f"{self.name} - {self.first_name or ''}".strip(" -")
+        return f"{self.first_name or ''} {self.last_name or ''} - {self.email}".strip()
