@@ -1,0 +1,56 @@
+/* ---------- FONTS ---------- */
+@font-face {
+  font-family: 'Inter';
+  src: url('/static/fonts/inter/Inter28pt-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/static/fonts/inter/Inter28pt-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Inter';
+  src: url('/static/fonts/inter/Inter28pt-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- BASE ---------- */
+body {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+/* Titres */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+/* Paragraphes */
+p {
+  font-weight: 400;
+}
+
+/* Boutons / Call to Action */
+.primary-btn {
+  font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+/* Petites notes / secondaires */
+.secondary-text {
+  font-weight: 400;
+}
+
+/* Classe pour textes intermédiaires */
+.medium-text {
+  font-weight: 500;
+}

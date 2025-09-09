@@ -19,7 +19,6 @@ db.sqlite3
 media/
 staticfiles/
 # If you collect static files
-/static/
 
 # IDEs
 .idea/
