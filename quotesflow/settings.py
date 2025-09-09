@@ -38,18 +38,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # my apps
+    'accounts.apps.AccountsConfig',
+
+    # third-party apps
+    'allauth_ui',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    # other packages
     'django_cotton',
     'django_countries',
     'django_quill',
     'cloudinary',
     'cloudinary_storage',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
     'django_extensions',
-    'accounts.apps.AccountsConfig',
     'phonenumber_field',
+    'widget_tweaks',
+    'slippers',
 ]
 
 MIDDLEWARE = [
