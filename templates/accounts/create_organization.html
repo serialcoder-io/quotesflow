@@ -87,14 +87,24 @@
           </div>
 
           <!-- Common fields -->
-           <div class="w-full">
-              <c-ui.django_form_input label="{{form.name.label}}" field_name="name">
-                <c-slot name="icon">
-                  <c-icons.building_office />
-                </c-slot>
-                <c-slot name="input">{{form.name}}</c-slot>
-              </c-ui.django_form_input>
-            </div>
+          <div class="w-full">
+            <c-ui.django_form_input label="{{form.name.label}}" field_name="name">
+              <c-slot name="icon">
+                <c-icons.building_office />
+              </c-slot>
+              <c-slot name="input">{{form.name}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+
+          <div class="w-full">
+            <c-ui.django_form_input label="{{form.initials.label}}" field_name="initials">
+              <c-slot name="icon">
+                <c-icons.clipboard_type />
+              </c-slot>
+              <c-slot name="input">{{form.initials}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+
           <div class="w-full">
             <c-ui.django_form_input label="{{form.logo.label}}">
               <c-slot name="icon">

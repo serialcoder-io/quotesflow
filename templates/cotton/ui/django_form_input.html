@@ -4,7 +4,7 @@
   <div class="label pb-1">
     <span class="label-text text-sm text-base-content">
       {{ label }} 
-      {% if field_name == "name" %}
+      {% if field_name == "name" or field_name == "initials" %}
       <span class="optional-text font-bold">({% trans "optional" %})</span>
       {%endif%}
     </span>
