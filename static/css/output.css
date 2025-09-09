@@ -3386,6 +3386,9 @@
   .text-accent {
     color: var(--color-accent);
   }
+  .text-accent-content {
+    color: var(--color-accent-content);
+  }
   .text-base-content {
     color: var(--color-base-content);
   }
@@ -3490,6 +3493,9 @@
   }
   .text-red-600 {
     color: var(--color-red-600);
+  }
+  .text-secondary-content {
+    color: var(--color-secondary-content);
   }
   .text-success {
     color: var(--color-success);
