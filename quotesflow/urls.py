@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls.i18n import i18n_patterns
 from django.urls import include, path
-from accounts.views import CustomLoginView, index_view
+from accounts.views import index_view
 from django.contrib import admin
 
 urlpatterns = [
