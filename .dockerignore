@@ -18,6 +18,9 @@ env/
 db.sqlite3
 media/
 staticfiles/
+
+.gitignore
+
 # If you collect static files
 
 # IDEs
@@ -30,20 +33,3 @@ staticfiles/
 *.pyc
 *.pyo
 *.pyd
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
