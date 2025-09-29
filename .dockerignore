@@ -20,6 +20,8 @@ media/
 staticfiles/
 
 .gitignore
+.git/
+.github/
 
 # If you collect static files
 

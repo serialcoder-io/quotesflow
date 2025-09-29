@@ -13,6 +13,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to Github Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Build & Push Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/quotesflow
+          TAG=$(date +%s)
+          docker build . -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
