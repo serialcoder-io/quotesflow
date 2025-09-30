@@ -98,18 +98,25 @@ WSGI_APPLICATION = 'quotesflow.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+DB_NAME = config('DB_NAME')
+DB_USER = config('DB_USER')
+DB_PASS = config('DB_PASS')
+DB_HOST = config('DB_HOST')
+DB_PORT = config('DB_PORT')
+
 if DEBUG:
-    import dj_database_url
     DATABASES = {
-        'default': dj_database_url.config(default=config('DATABASE_URL'))
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': DB_NAME,
+            'USER': DB_USER,
+            'PASSWORD': DB_PASS,
+            'HOST': DB_HOST,
+            'PORT': DB_PORT,
+        }
     }
 else:
-    DB_NAME = config('DB_NAME')
-    DB_USER = config('DB_USER')
-    DB_PASS = config('DB_PASS')
-    DB_HOST = config('DB_HOST')
-    DB_PORT = config('DB_PORT')
-
+    
     SECURE_SSL_REDIRECT = False
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SESSION_COOKIE_SECURE = True
@@ -122,28 +129,15 @@ else:
     # SESSION_COOKIE_AGE = 3600
     # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
-    """DATABASES = {
+    DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.mysql',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': DB_NAME,
             'USER': DB_USER,
             'PASSWORD': DB_PASS,
             'HOST': DB_HOST,
             'PORT': DB_PORT,
-            'OPTIONS': {
-                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-                'charset': 'utf8mb4',
-            },
         }
-    }"""
-    import dj_database_url
-
-    DATABASES = {
-        "default": dj_database_url.config(
-            default=config("DATABASE_URL"),
-            conn_max_age=600,
-            ssl_require=True
-        )
     }
 
 

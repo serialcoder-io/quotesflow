@@ -6,9 +6,9 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      - postgres
 
-  db:
+  postgres:
     image: postgres:${POSTGRES_TAG}
     environment:
       POSTGRES_DB: ${DB_NAME}
