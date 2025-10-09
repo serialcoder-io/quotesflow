@@ -4,6 +4,7 @@ from allauth.account.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import Organization, OrganizationUser
+from accounts.utils import get_current_organization_context
 from .forms import OrganizationModelForm
 from django.contrib.auth.decorators import login_required
 
@@ -27,25 +28,13 @@ def create_organization(request):
     return render(request, "accounts/create_organization.html", {"form": form})
 
 
+@login_required
 def dashboard(request, org_slug):
-    org = get_object_or_404(
-        Organization.objects.only("id", "name", "initials", "logo"),
-        slug=org_slug
-    )
+    context = get_current_organization_context(request, org_slug)
+    return render(request, "accounts/organization/dashboard.html", context)
 
-    user_orgs = OrganizationUser.objects.filter(user=request.user).values('organization__id', 'organization__name', 'organization__slug')
 
-    # check if user belongs to the organization
-    is_user_in_org = OrganizationUser.objects.filter(
-        user=request.user, organization=org
-    ).exists()
-
-    if not is_user_in_org:
-        # Hide the existence of the organization if the user is not part of it
-        raise Http404("Organization not found.")
-
-    return render(
-        request,
-        "accounts/organization/dashboard.html",
-        {"organization": org, "user_organizations": user_orgs, "current_slug": org_slug}
-    )
+@login_required
+def customer_management(request, org_slug):
+    context = get_current_organization_context(request, org_slug)
+    return render(request, "accounts/organization/customer_management.html", context)

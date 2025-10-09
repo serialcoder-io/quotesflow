@@ -1,0 +1,259 @@
+{% extends "accounts/organization/base.html" %} 
+
+{% load static %} {% load i18n %} 
+{% block title %}
+    <title>{% trans "Customer management" %}</title>
+{% endblock %} 
+
+{% block content %}
+<div class="p-4">
+  <div class="flex items-center gap-x-3 py-4">
+    <a href="" class="text-sm">Dashboard</a>
+    <span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-4"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m8.25 4.5 7.5 7.5-7.5 7.5"
+        />
+      </svg>
+    </span>
+    <a href="" class="text-sm font-bold">Customer management</a>
+  </div>
+  <div class="flex justify-between items-center">
+    <div class="flex flex-col">
+      <h2 class="text-3xl text-neutral">{% trans "Customer management" %}</h2>
+      <p class="text-neutral-300 mt-1 text-sm">
+        {% blocktrans %}Manage your customers and their details{% endblocktrans%}
+      </p>
+    </div>
+    <div>
+      <c-ui.button extra_class="btn-primary h-10 font-normal">
+        <c-slot name="text">
+          <c-icons.plus />
+          <span class="text-lg">Add Customer</span>
+        </c-slot>
+      </c-ui.button>
+    </div>
+  </div>
+  <!-- filter section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 border border-neutral-200 rounded-xl shadow p-6">
+      <div>
+        <c-ui.input_no_label placeholder="{% trans 'Search customers...' %}" type="text" name="search" id="search_customers" extra_class="max-w-md">
+          <c-icons.magnifying_glass />
+        </c-ui.input_no_label>
+      </div>
+      <div class="flex items-center gap-x-5 justify-end">
+        <c-components.select name="client_status" id="client_status" extra_class="w-48">
+            <c-slot name="options">
+                <option value="all_status">{% trans 'All status' %}</option>
+                <option value="active">{% trans 'Active' %}</option>
+                <option value="inactive">{% trans 'Inactive' %}</option>
+            </c-slot>
+        </c-components.select>
+        <c-ui.button extra_class="h-10 font-normal">
+            <c-slot name="text">
+            <c-icons.arrow_path />
+            <span class="text-md">Reset filter</span>
+            </c-slot>
+        </c-ui.button>
+      </div>   
+  </div>
+  <div class="overflow-x-auto p-4 mt-6 border border-neutral-200 rounded-xl shadow">
+  <table class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <th>Name</th>
+        <th>Job</th>
+        <th>Favorite Color</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">Hart Hagerty</div>
+              <div class="text-sm opacity-50">United States</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Zemlak, Daniel and Leannon
+          <br />
+          <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
+        </td>
+        <td>Purple</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+      <!-- row 2 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="https://img.daisyui.com/images/profile/demo/3@94.webp"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">Brice Swyre</div>
+              <div class="text-sm opacity-50">China</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Carroll Group
+          <br />
+          <span class="badge badge-ghost badge-sm">Tax Accountant</span>
+        </td>
+        <td>Red</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+      <!-- row 3 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="https://img.daisyui.com/images/profile/demo/4@94.webp"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">Marjy Ferencz</div>
+              <div class="text-sm opacity-50">Russia</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Rowe-Schoen
+          <br />
+          <span class="badge badge-ghost badge-sm">Office Assistant I</span>
+        </td>
+        <td>Crimson</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+      <!-- row 4 -->
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">Yancy Tear</div>
+              <div class="text-sm opacity-50">Brazil</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Wyman-Ledner
+          <br />
+          <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+        </td>
+        <td>Indigo</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          <label>
+            <input type="checkbox" class="checkbox" />
+          </label>
+        </th>
+        <td>
+          <div class="flex items-center gap-3">
+            <div class="avatar">
+              <div class="mask mask-squircle h-12 w-12">
+                <img
+                  src="https://img.daisyui.com/images/profile/demo/5@94.webp"
+                  alt="Avatar Tailwind CSS Component" />
+              </div>
+            </div>
+            <div>
+              <div class="font-bold">Yancy Tear</div>
+              <div class="text-sm opacity-50">Brazil</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          Wyman-Ledner
+          <br />
+          <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
+        </td>
+        <td>Indigo</td>
+        <th>
+          <button class="btn btn-ghost btn-xs">details</button>
+        </th>
+      </tr>
+      
+    </tbody>
+    <!-- foot -->
+  </table>
+</div>
+</div>
+<div class="flex justify-between px-4 mt-6">
+    <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
+    <div class="join">
+        <button class="join-item btn">«</button>
+        <button class="join-item btn">Page 22</button>
+        <button class="join-item btn">»</button>
+    </div>
+</div>
+{% endblock %}

@@ -1,11 +1,47 @@
 {% extends "accounts/organization/base.html" %} 
-{% load static %} 
-{% load i18n %} 
 
+{% load static %} {% load i18n %} 
 {% block title %}
-<title>{% trans "Dashboard" %}</title>
+    <title>{% trans "Dashboard" %}</title>
 {% endblock %} 
 
 {% block content %}
-
+<div class="p-4">
+  <div class="flex items-center gap-x-3 py-4">
+    <a href="" class="text-md">Dashboard</a>
+    <span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="size-4"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m8.25 4.5 7.5 7.5-7.5 7.5"
+        />
+      </svg>
+    </span>
+    <a href="" class="text-md">Customers</a>
+  </div>
+  <div class="flex justify-between items-center">
+    <div class="flex flex-col">
+      <h2 class="text-3xl text-neutral">{% trans "Customer management" %}</h2>
+      <p class="text-neutral-400 mt-1">
+        {% blocktrans %}Manage your customers and their details{% endblocktrans%}
+      </p>
+    </div>
+    <div>
+      <c-ui.button extra_class="btn-primary h-12 font-normal">
+        <c-slot name="text">
+          <c-icons.plus />
+          <span class="text-lg">Add Customer</span>
+        </c-slot>
+      </c-ui.button>
+    </div>
+  </div>
+</div>
 {% endblock %}

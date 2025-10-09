@@ -46,11 +46,19 @@
       <!-- Dashboard Section -->
       <div class="mb-6">
         <div class="space-y-1">
-          <c-ui.sidebar_link text="Dashboard" curr_path="dashboard">
+          <c-ui.sidebar_link 
+            text="Dashboard" 
+            curr_path="dashboard" 
+            href="{% url 'dashboard' organization.slug %}"
+          >
             <c-icons.chart />
           </c-ui.sidebar_link>
           
-          <c-ui.sidebar_link text="{% trans 'Clients' %}">
+          <c-ui.sidebar_link 
+            text="{% trans 'Customers' %}" 
+            curr_path="customer_management" 
+            href="{% url 'customer_management' organization.slug %}"
+          >
             <c-icons.users />
           </c-ui.sidebar_link>
 

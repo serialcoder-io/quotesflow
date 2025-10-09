@@ -12,69 +12,13 @@
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
     {% block extra_head %}{% endblock %}
   </head>
-  <body class="bg-base-200 min-h-screen">
+  <body class="bg-base-200 min-h-screen" id="body">
     <c-components.sidebar />
     <main class="lg:ml-72 flex-1 p-4">
-      <div class="navbar bg-base-100 shadow-sm rounded-xl">
-        <div class="flex-1 flex gap-3">
-          <div class="w-48">
-            <c-components.select name="org" id="org">
-              <c-slot name="icon">
-                <c-icons.building_office />
-              </c-slot>
-              <c-slot name="options">
-                {% for user_org in user_organizations %}
-                  <option value="{{user_org.organization__id}}" {% if user_org.organization__slug == current_slug %}selected{% endif %}>
-                    {{user_org.organization__name}}
-                  </option>
-                {% endfor %}
-              </c-slot>
-            </c-components.select>
-          </div>
-          <div class="w-24"><c-components.language_switcher /></div>
-        </div>
-        <div class="flex-none">
-          <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
-              {% if request.user.avatar %}
-                <div class="w-8 rounded-full">
-                  <img
-                    alt="Tailwind CSS Navbar component"
-                    src="{{request.user.avatar.url}}" />
-                </div>
-              {% else %}
-                <div class="avatar avatar-placeholder">
-                  <div class="bg-neutral text-neutral-content w-8 rounded-full">
-                    {% if request.user.first_name or request.user.last_name %}
-                      <span class="text-xs font-normal">
-                        {{ request.user.first_name|default_if_none:""|slice:":1"|upper }}
-                        {{ request.user.last_name|default_if_none:""|slice:":1"|upper }}
-                      </span>
-                    {% else %}
-                      <span class="text-xs font-normal">
-                        {{ request.user.email|slice:":2"|upper }}
-                      </span>
-                    {% endif %}
-                  </div>
-                </div>
-              {% endif %}
-            </div>
-            <ul
-              tabindex="0"
-              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-              <li>
-                <a class="justify-between">
-                  Profile
-                  <span class="badge">New</span>
-                </a>
-              </li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      {% block content %}{% endblock %}
+      <c-components.dashboard_navbar />
+      {% block content %}
+
+      {% endblock %}
       {% block extra_script %}{% endblock %}
     </main>
   </body>
