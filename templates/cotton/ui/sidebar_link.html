@@ -1,0 +1,14 @@
+<c-vars curr_path=" " />
+
+<a
+  href="{{href}}"
+  curr_path="{{curr_path}}"
+  class="group flex gap-x-3 items-center px-3 py-3 text-md font-light hover:text-primary hover:bg-base-300 hover:border-l-5 rounded-xl transition-all duration-200 box-border {% if curr_path in request.path %} border-l-primary border-l-5 bg-base-300 {% endif %}"
+>
+  <span class="group-hover:bg-primary group-hover:text-primary-content transition-all duration-200 {% if curr_path in request.path %} bg-primary text-primary-content {% else %} bg-base-300 text-base-content {% endif %} p-2 rounded-xl">
+    {{slot}}
+  </span>
+   <span class="{% if curr_path in request.path %} text-primary {% else %} text-base-content {% endif %}">
+    {{text}}
+  </span>
+</a>

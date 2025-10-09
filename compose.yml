@@ -7,6 +7,8 @@ services:
       - .env
     depends_on:
       - postgres
+    volumes:
+      - .:/app 
 
   postgres:
     image: postgres:${POSTGRES_TAG}

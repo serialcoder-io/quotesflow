@@ -14,6 +14,7 @@ from django_quill.fields import QuillField
 from django.utils import timezone
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
+from .managers import OrganizationManager
 
 # --------------------------
 # Custom User
@@ -193,7 +194,7 @@ class Organization(models.Model):
     email = models.EmailField(verbose_name=_("Organization email"), blank=True, null=True)
     contact = PhoneNumberField(verbose_name=_("Phone number"), blank=True, null=True)
     created_at = models.DateTimeField(verbose_name=_('creation date'), auto_now_add=True)
-    users = models.ManyToManyField(CustomUser, through='accounts.OrganizationUser')
+    members = models.ManyToManyField(CustomUser, through='accounts.OrganizationUser', verbose_name="Members")
 
     def __str__(self):
         return self.name
@@ -308,6 +309,8 @@ class OrganizationInvitation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     expires_at = models.DateTimeField(null=True, blank=True)  # optionnel
 
+    objects = OrganizationManager()
+
     def is_expired(self):
         if self.expires_at:
             return timezone.now() > self.expires_at
@@ -334,6 +337,8 @@ class Customer(models.Model):
     contact = PhoneNumberField(verbose_name=_("Phone number"), blank=True, null=True)
     address = models.CharField(max_length=250, verbose_name=_("Adresse"), blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_("Date de création"))
+
+    objects = OrganizationManager()
 
     class Meta:
         db_table = "customer"

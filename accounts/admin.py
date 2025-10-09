@@ -17,7 +17,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 # Organization
 # --------------------------
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ['name', 'legal_id']
+    list_display = ['name', 'legal_id_name', 'legal_id']
 
 
 # --------------------------

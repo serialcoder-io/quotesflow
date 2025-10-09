@@ -54,3 +54,24 @@ p {
 .medium-text {
   font-weight: 500;
 }
+
+
+/* Chrome, Edge, Safari */
+.sidebar-nav::-webkit-scrollbar {
+  width: 4px; /* largeur de la scrollbar */
+}
+
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent; /* couleur du "track" */
+}
+
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background-color: #9b9b9b4d; /* couleur du "thumb" */
+  border-radius: 3px; /* arrondi du thumb */
+}
+
+/* Firefox */
+.sidebar-nav {
+  scrollbar-width: thin; /* "auto", "thin" ou "none" */
+  scrollbar-color: #9b9b9b4d transparent; /* thumb track */
+}

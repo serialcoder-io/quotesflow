@@ -14,13 +14,13 @@ class ForceOrganizationMiddleware:
                 reverse('account_logout'),
                 reverse('account_login'),
                 reverse('admin:index'),  # admin home
-                reverse('set_language'), 
+                reverse('set_language'),
             ]
 
             # Vérifie si l'URL est exemptée
             is_exempt = (
                 any(request.path.startswith(url) for url in exempt_urls) or
-                request.path.startswith('/admin/') 
+                request.path.startswith('/fr/admin') or request.path.startswith('/en/admin')
             )
 
             if (not Organization.objects.filter(owner=request.user).exists() and
