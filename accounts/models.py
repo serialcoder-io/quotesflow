@@ -214,17 +214,7 @@ class Organization(models.Model):
             raise ValidationError(_('First name and last name are required for individuals.'))
 
     def save(self, *args, **kwargs):
-        if self.pk:
-            # Update : get old name
-            try:
-                old_name = Organization.objects.only("name").get(pk=self.pk).name
-            except Organization.DoesNotExist:
-                old_name = None
-            # if the name has changed, update slug
-            if old_name and old_name != self.name:
-                self.slug = slugify(self.name)
-        else:
-            # create : generate the slug
+        if not self.slug or (self.pk and Organization.objects.filter(pk=self.pk).values_list("name", flat=True).first() != self.name):
             self.slug = slugify(self.name)
         
         if not self.initials and self.name:

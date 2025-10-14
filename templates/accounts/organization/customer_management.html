@@ -1,8 +1,9 @@
 {% extends "accounts/organization/base.html" %} 
+{% load static %} 
+{% load i18n %} 
 
-{% load static %} {% load i18n %} 
 {% block title %}
-    <title>{% trans "Customer management" %}</title>
+<title>{% trans "Customer management" %}</title>
 {% endblock %} 
 
 {% block content %}
@@ -30,8 +31,9 @@
   <div class="flex justify-between items-center">
     <div class="flex flex-col">
       <h2 class="text-3xl text-neutral">{% trans "Customer management" %}</h2>
-      <p class="text-neutral-300 mt-1 text-sm">
-        {% blocktrans %}Manage your customers and their details{% endblocktrans%}
+      <p class="text-neutral-600 mt-1 text-sm">
+        {% blocktrans %}Manage your customers and their details{%
+        endblocktrans%}
       </p>
     </div>
     <div>
@@ -44,216 +46,106 @@
     </div>
   </div>
   <!-- filter section -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 border border-neutral-200 rounded-xl shadow p-6">
-      <div>
-        <c-ui.input_no_label placeholder="{% trans 'Search customers...' %}" type="text" name="search" id="search_customers" extra_class="max-w-md">
-          <c-icons.magnifying_glass />
-        </c-ui.input_no_label>
-      </div>
-      <div class="flex items-center gap-x-5 justify-end">
-        <c-components.select name="client_status" id="client_status" extra_class="w-48">
-            <c-slot name="options">
-                <option value="all_status">{% trans 'All status' %}</option>
-                <option value="active">{% trans 'Active' %}</option>
-                <option value="inactive">{% trans 'Inactive' %}</option>
-            </c-slot>
-        </c-components.select>
-        <c-ui.button extra_class="h-10 font-normal">
-            <c-slot name="text">
-            <c-icons.arrow_path />
-            <span class="text-md">Reset filter</span>
-            </c-slot>
-        </c-ui.button>
-      </div>   
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 border border-neutral-200 rounded-xl shadow p-6"
+  >
+    <div>
+      <c-ui.input_no_label
+        placeholder="{% trans 'Search customers...' %}"
+        type="text"
+        name="search"
+        id="search_customers"
+        extra_class="max-w-md"
+      >
+        <c-icons.magnifying_glass />
+      </c-ui.input_no_label>
+    </div>
+    <div class="flex items-center gap-x-5 justify-end">
+      <c-components.select
+        name="client_status"
+        id="client_status"
+        extra_class="w-48"
+      >
+        <c-slot name="options">
+          <option value="all_status">{% trans 'All status' %}</option>
+          <option value="active">{% trans 'Active' %}</option>
+          <option value="inactive">{% trans 'Inactive' %}</option>
+        </c-slot>
+      </c-components.select>
+      <c-ui.button extra_class="h-10 font-normal">
+        <c-slot name="text">
+          <c-icons.arrow_path />
+          <span class="text-md">Reset filter</span>
+        </c-slot>
+      </c-ui.button>
+    </div>
   </div>
-  <div class="overflow-x-auto p-4 mt-6 border border-neutral-200 rounded-xl shadow">
-  <table class="table">
-    <!-- head -->
-    <thead>
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- row 1 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/2@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
+  <div
+    class="overflow-x-auto p-4 mt-6 border border-neutral-200 rounded-xl shadow"
+  >
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox checkbox-sm" />
+            </label>
+          </th>
+          <th class="text-sm">{% trans "CUSTOMER" %}</th>
+          <th class="text-sm">{% trans "CONTACT" %}</th>
+          <th class="text-sm">{% trans "QUOTES" %}</th>
+          <th class="text-sm">{% trans "INVOICES" %}</th>
+          <th class="text-sm">{% trans "ACTIONS" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        {% for customer in page_obj %}
+          <tr>
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox checkbox-sm" />
+              </label>
+            </th>
+            <td>
+              <div class="flex items-center gap-3">
+                <div class="avatar avatar-placeholder">
+                  <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                    <span class="text-xs">UI</span>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-bold text-md">{{customer.name}}</div>
+                  <div class="text-xs opacity-50">{{customer.address}}</div>
+                </div>
               </div>
-            </div>
-            <div>
-              <div class="font-bold">Hart Hagerty</div>
-              <div class="text-sm opacity-50">United States</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Zemlak, Daniel and Leannon
-          <br />
-          <span class="badge badge-ghost badge-sm">Desktop Support Technician</span>
-        </td>
-        <td>Purple</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 2 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/3@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div class="font-bold">Brice Swyre</div>
-              <div class="text-sm opacity-50">China</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Carroll Group
-          <br />
-          <span class="badge badge-ghost badge-sm">Tax Accountant</span>
-        </td>
-        <td>Red</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 3 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/4@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div class="font-bold">Marjy Ferencz</div>
-              <div class="text-sm opacity-50">Russia</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Rowe-Schoen
-          <br />
-          <span class="badge badge-ghost badge-sm">Office Assistant I</span>
-        </td>
-        <td>Crimson</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <!-- row 4 -->
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div class="font-bold">Yancy Tear</div>
-              <div class="text-sm opacity-50">Brazil</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Wyman-Ledner
-          <br />
-          <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-        </td>
-        <td>Indigo</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      <tr>
-        <th>
-          <label>
-            <input type="checkbox" class="checkbox" />
-          </label>
-        </th>
-        <td>
-          <div class="flex items-center gap-3">
-            <div class="avatar">
-              <div class="mask mask-squircle h-12 w-12">
-                <img
-                  src="https://img.daisyui.com/images/profile/demo/5@94.webp"
-                  alt="Avatar Tailwind CSS Component" />
-              </div>
-            </div>
-            <div>
-              <div class="font-bold">Yancy Tear</div>
-              <div class="text-sm opacity-50">Brazil</div>
-            </div>
-          </div>
-        </td>
-        <td>
-          Wyman-Ledner
-          <br />
-          <span class="badge badge-ghost badge-sm">Community Outreach Specialist</span>
-        </td>
-        <td>Indigo</td>
-        <th>
-          <button class="btn btn-ghost btn-xs">details</button>
-        </th>
-      </tr>
-      
-    </tbody>
-    <!-- foot -->
-  </table>
-</div>
+            </td>
+            <td>
+              <span class="text-md">{{customer.email}}</span>
+              <br />
+              <span class="text-md text-neutral-500">
+                {{customer.contact}}
+              </span>
+            </td>
+            <td>6</td>
+            <td>5</td>
+            <th>
+              <button class="btn btn-ghost btn-xs">details</button>
+            </th>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <!-- foot -->
+    </table>
+  </div>
 </div>
 <div class="flex justify-between px-4 mt-6">
-    <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
-    <div class="join">
-        <button class="join-item btn">«</button>
-        <button class="join-item btn">Page 22</button>
-        <button class="join-item btn">»</button>
-    </div>
+  <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
+  <div class="join">
+    <button class="join-item btn">«</button>
+    <button class="join-item btn">Page 22</button>
+    <button class="join-item btn">»</button>
+  </div>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from accounts.models import (
-    CustomUser, Organization, OrganizationInvitation, OrgRole,
+    CustomUser, Customer, Organization, OrganizationInvitation, OrgRole,
     OrganizationUser, OrgPermissions, SubscriptionPlan, SubscriptionPlanFeature,
     Feature
 )
@@ -81,6 +81,10 @@ class SubscriptionPlanFeatureAdmin(admin.ModelAdmin):
     list_display = ['subscription_plan', 'feature', 'value']
 
 
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ['name', 'email', 'address', 'organization__name']
+
+
 # --------------------------
 # Register all
 # --------------------------
@@ -93,3 +97,4 @@ admin.site.register(OrganizationInvitation, OrganizationInvitationAdmin)
 admin.site.register(Feature, FeatureAdmin)
 admin.site.register(SubscriptionPlan, SubscriptionPlanAdmin)
 admin.site.register(SubscriptionPlanFeature, SubscriptionPlanFeatureAdmin)
+admin.site.register(Customer, CustomerAdmin)
