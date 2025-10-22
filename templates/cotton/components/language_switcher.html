@@ -1,4 +1,6 @@
-<form class="dropdown" method="post" action="{% url 'set_language' %}">
+<c-vars extra_class="h-4" />
+
+<form class="dropdown dropdown-left" method="post" action="{% url 'set_language' %}">
   <input type="hidden" name="next" value="{{ request.path }}" />
   {% csrf_token %}
   <div tabindex="0" role="button" class="btn bg-transparent border-none text-center m-1 h-6 p-0">
@@ -12,7 +14,7 @@
     <img
       src="https://www.flagdetective.com/images/download/france.jpg"
       alt=""
-      class="h-3 w-5 mt-1"
+      class="{{ extra_class }} w-5 mt-1"
     />
     {% endif %}
   </div>

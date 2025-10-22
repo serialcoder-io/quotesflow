@@ -1,3 +1,4 @@
+import uuid
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from allauth.account.views import LoginView
@@ -31,14 +32,14 @@ def create_organization(request):
 
 
 @login_required
-def dashboard(request, org_slug):
-    context = get_current_organization_context(request, org_slug)
+def dashboard(request, id: uuid):
+    context = get_current_organization_context(request, id)
     return render(request, "accounts/organization/dashboard.html", context)
 
 
 @login_required
-def customer_management(request, org_slug):
-    context = get_current_organization_context(request, org_slug)
+def customer_management(request, id: uuid):
+    context = get_current_organization_context(request, id)
     org = context["organization"]
     customers_for_org = org.customers.all()
     paginator = Paginator(customers_for_org, 10)
@@ -48,3 +49,21 @@ def customer_management(request, org_slug):
         "page_obj": page_obj
     })
     return render(request, "accounts/organization/customer_management.html", context)
+
+
+def organization_settins(request, id):
+    pass
+
+
+@login_required
+def home(request):
+    user_orgs = (
+        OrganizationUser.objects
+        .filter(
+            user=request.user,
+            is_active_by_plan=True,
+            is_active_by_owner=True
+        )
+        .select_related("organization")
+    )
+    return render(request, "accounts/organization/index.html", {"user_orgs": user_orgs})

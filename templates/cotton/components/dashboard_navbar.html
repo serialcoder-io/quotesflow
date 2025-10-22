@@ -1,23 +1,10 @@
 {% load i18n %}
-<div class="navbar bg-base-100 shadow-sm rounded-xl sticky top-4">
+<div class="navbar bg-base-100 shadow-sm rounded-xl sticky top-4 px-4">
     <div class="flex-1 flex gap-3">
-        <div class="w-48">
-            <c-components.select_with_icon name="org" id="org">
-                <c-slot name="icon">
-                    <c-icons.building_office />
-                </c-slot>
-                <c-slot name="options">
-                    {% for user_org in user_organizations %}
-                    <option value="{{user_org.organization__id}}" {% if user_org.organization__slug == current_slug %}selected{% endif %}>
-                        {{user_org.organization__name}}
-                    </option>
-                    {% endfor %}
-                </c-slot>
-            </c-components.select_with_icon>
-        </div>
         <div class="w-24"><c-components.language_switcher /></div>
     </div>
     <div class="flex-none">
+        <c-components.language_switcher extra_class="h-4" />
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 {% if request.user.avatar %}

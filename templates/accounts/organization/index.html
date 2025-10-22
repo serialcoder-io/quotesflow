@@ -1,0 +1,51 @@
+{% load static %} 
+{% load i18n %} 
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Choisir une organisation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+</head>
+<body class="h-screen bg-base-200">
+  <div class="text-center py-8">
+    <h1 class="text-3xl font-bold mb-2">{% trans "Welcome" %} 👋</h1>
+    <p class="text-neutral-500">Choisissez une organisation pour continuer</p>
+  </div>
+
+  <div class="flex flex-wrap justify-center items-center gap-6 w-full p-6">
+    <!-- Carte organisation -->
+    {% for org_user in user_orgs %}
+        <a href="{% url 'dashboard' org_user.organization.id %}" class="group w-xs max-w-xs">
+            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition transform hover:-translate-y-1 border border-transparent hover:border-primary">
+                <div class="card-body items-center text-center">
+                    {% if org_user.organization.logo %}
+                        <div class="avatar">
+                            <div class="w-14 rounded-full">
+                                <img src="{{ org_user.organization.logo.url }}" />
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="avatar avatar-placeholder">
+                            <div class="bg-primary/60 text-neutral-content w-14 rounded-full">
+                                <span class="text-lg">{{ org_user.organization.name|slice:":1"|upper }}</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <h2 class="card-title group-hover:text-primary">{{ org_user.organization.name }}</h2>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    
+  </div>
+
+  <footer class="mt-10 text-md text-neutral-600 h-10 fixed bottom-0 left-[50%] translate-x-[-50%]">
+    © 2025 quotesflow — Tous droits réservés
+  </footer>
+</body>
+</html>

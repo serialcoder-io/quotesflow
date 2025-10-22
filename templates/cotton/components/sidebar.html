@@ -49,7 +49,7 @@
           <c-ui.sidebar_link 
             text="Dashboard" 
             curr_path="dashboard" 
-            href="{% url 'dashboard' organization.slug %}"
+            href="{% url 'dashboard' organization.id %}"
           >
             <c-icons.chart />
           </c-ui.sidebar_link>
@@ -57,7 +57,7 @@
           <c-ui.sidebar_link 
             text="{% trans 'Customers' %}" 
             curr_path="customer_management" 
-            href="{% url 'customer_management' organization.slug %}"
+            href="{% url 'customer_management' organization.id %}"
           >
             <c-icons.users />
           </c-ui.sidebar_link>

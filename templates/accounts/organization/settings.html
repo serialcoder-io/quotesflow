@@ -1,0 +1,54 @@
+{% extends "accounts/organization/base.html" %} 
+{% load static %} 
+{% load i18n %} 
+
+{% block title %}
+<title>{% trans "Customer management" %}</title>
+{% endblock %} 
+
+{% block content %}
+<div class="p-4">
+  <nav class="flex mb-4" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2 text-sm text-gray-500">
+          <li>
+              <a href="dashboard.html" class="hover:text-gray-700">Tableau de bord</a>
+          </li>
+          <li>
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+              </svg>
+          </li>
+          <li class="text-neutral font-medium">Gestion des Devis</li>
+      </ol>
+  </nav>
+  <div class="mb-8">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div>
+              <h1 class="text-2xl font-semibold text-neutral">{% trans "Customer management" %}</h1>
+              <p class="mt-1 text-sm text-neutral-600">
+                {% blocktrans %}Manage your customers and their details{% endblocktrans %}
+              </p>
+          </div>
+          <div class="mt-4 sm:mt-0">
+            <c-ui.button extra_class="btn-primary h-10 font-normal">
+              <c-slot name="text">
+                <c-icons.plus />
+                <span class="text-md">{% trans "Add customer" %}</span>
+              </c-slot>
+            </c-ui.button>
+          </div>
+      </div>
+  </div>
+  <!-- filter section -->
+  omar
+  </div>
+</div>
+<div class="flex justify-between px-4 mt-6">
+  <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
+  <div class="join">
+    <button class="join-item btn">«</button>
+    <button class="join-item btn">Page 22</button>
+    <button class="join-item btn">»</button>
+  </div>
+</div>
+{% endblock %}

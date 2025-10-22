@@ -4,13 +4,13 @@ from django.shortcuts import get_object_or_404
 from accounts.models import Organization, OrganizationUser
 
 
-def get_current_organization_context(request, org_slug):
+def get_current_organization_context(request, id: int):
     """
     get_current_organization_context retrieves the current organization from the session.
     """
     org = get_object_or_404(
-        Organization.objects.only("id", "name", "initials", "logo"),
-        slug=org_slug
+        Organization.objects.only("id", "name", "initials", "logo", "slug"),
+        id=id
     )
 
     user_orgs = OrganizationUser.objects.filter(user=request.user).values('organization__id', 'organization__name', 'organization__slug')
@@ -27,5 +27,5 @@ def get_current_organization_context(request, org_slug):
     return {
         "organization": org, 
         "user_organizations": user_orgs,
-        "current_slug": org_slug
+        "current_slug": org.slug
         }
