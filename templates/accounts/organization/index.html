@@ -14,7 +14,9 @@
 <body class="h-screen bg-base-200">
   <div class="text-center py-8">
     <h1 class="text-3xl font-bold mb-2">{% trans "Welcome" %} 👋</h1>
-    <p class="text-neutral-500">Choisissez une organisation pour continuer</p>
+    <p class="text-neutral-500">
+      {% blocktrans %} Choose an organization to continue.{% endblocktrans %}
+    </p>
   </div>
 
   <div class="flex flex-wrap justify-center items-center gap-6 w-full p-6">
@@ -45,7 +47,7 @@
   </div>
 
   <footer class="mt-10 text-md text-neutral-600 h-10 fixed bottom-0 left-[50%] translate-x-[-50%]">
-    © 2025 quotesflow — Tous droits réservés
+    © 2025 quotesflow — {% blocktrans %} All rights reserved {% endblocktrans %}
   </footer>
 </body>
 </html>

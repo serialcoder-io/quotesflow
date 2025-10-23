@@ -51,7 +51,7 @@ def customer_management(request, id: uuid):
     return render(request, "accounts/organization/customer_management.html", context)
 
 
-def organization_settins(request, id):
+def organization_settins(request, id: uuid):
     pass
 
 
@@ -67,3 +67,10 @@ def home(request):
         .select_related("organization")
     )
     return render(request, "accounts/organization/index.html", {"user_orgs": user_orgs})
+
+
+@login_required
+def organization_settings(request, id: uuid):
+    context = get_current_organization_context(request, id)
+    org = context["organization"]
+    return render(request, "accounts/organization/settings.html", context)

@@ -178,6 +178,8 @@ class Organization(models.Model):
     logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
     legal_id_name = models.CharField(verbose_name=_('Type of legal ID'), max_length=50, blank=True, null=True)  # ex: SIRET
     legal_id = models.CharField(verbose_name=_('legal ID number'), max_length=50, blank=True, null=True)
+    industry = models.CharField(verbose_name=_('Industry'), max_length=100, blank=True, null=True)
+    description = QuillField(verbose_name=_('description'), blank=True, null=True)
     subscription_plan = models.ForeignKey(
         SubscriptionPlan, 
         on_delete=models.SET_NULL, 

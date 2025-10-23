@@ -45,7 +45,7 @@
     <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto sidebar-nav">
       <!-- Dashboard Section -->
       <div class="mb-6">
-        <div class="space-y-1">
+        <div class="space-y-2">
           <c-ui.sidebar_link 
             text="Dashboard" 
             curr_path="dashboard" 
@@ -70,7 +70,9 @@
             <c-icons.doc_currency_$ />
           </c-ui.sidebar_link>
 
-          <c-ui.sidebar_link text="{% trans '0rganization' %}">
+          <c-ui.sidebar_link text="{% trans '0rganization' %}" 
+            curr_path="settings" 
+            href="{% url 'organization_settings' organization.id %}">
             <c-icons.building_office />
           </c-ui.sidebar_link>
         </div>

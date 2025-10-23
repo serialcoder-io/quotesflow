@@ -1,3 +1,4 @@
+{% load static %}
 <c-vars extra_class="h-4" />
 
 <form class="dropdown dropdown-left" method="post" action="{% url 'set_language' %}">
@@ -6,13 +7,13 @@
   <div tabindex="0" role="button" class="btn bg-transparent border-none text-center m-1 h-6 p-0">
     {% if LANGUAGE_CODE == "en" %}
     <img
-      src="https://cdn.britannica.com/25/4825-050-977D8C5E/Flag-United-Kingdom.jpg"
+      src="{% static 'images/uk_flag.png' %}"
       alt=""
       class="h-3 w-5 mt-1"
     />
     {% elif LANGUAGE_CODE == "fr" %}
     <img
-      src="https://www.flagdetective.com/images/download/france.jpg"
+      src="{% static 'images/fr_flag.jpg' %}"
       alt=""
       class="{{ extra_class }} w-5 mt-1"
     />

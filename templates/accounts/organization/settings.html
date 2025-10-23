@@ -7,48 +7,56 @@
 {% endblock %} 
 
 {% block content %}
-<div class="p-4">
-  <nav class="flex mb-4" aria-label="Breadcrumb">
-      <ol class="flex items-center space-x-2 text-sm text-gray-500">
+<div class="max-w-6xl mx-auto px-6 py-8">
+  <!-- Breadcrumb -->
+  <nav class="flex mb-6" aria-label="Breadcrumb">
+      <ol class="flex items-center space-x-2 text-md">
           <li>
-              <a href="dashboard.html" class="hover:text-gray-700">Tableau de bord</a>
+              <a href="dashboard.html" class="text-neutral-500 hover:text-neutral-700">{% trans "Dashboard" %}</a>
           </li>
           <li>
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+              <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
               </svg>
           </li>
-          <li class="text-neutral font-medium">Gestion des Devis</li>
+          <li>
+              <span class="text-neutral-900 font-medium">{% trans "Organization settings" %}</span>
+          </li>
       </ol>
   </nav>
+
+  <!-- Header -->
   <div class="mb-8">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <div>
-              <h1 class="text-2xl font-semibold text-neutral">{% trans "Customer management" %}</h1>
-              <p class="mt-1 text-sm text-neutral-600">
-                {% blocktrans %}Manage your customers and their details{% endblocktrans %}
-              </p>
-          </div>
-          <div class="mt-4 sm:mt-0">
-            <c-ui.button extra_class="btn-primary h-10 font-normal">
-              <c-slot name="text">
-                <c-icons.plus />
-                <span class="text-md">{% trans "Add customer" %}</span>
-              </c-slot>
-            </c-ui.button>
-          </div>
-      </div>
+      <h1 class="text-3xl font-semibold text-neutral-900 mb-2">{% trans "Organization settings" %}</h1>
+      <p class="text-neutral-600 text-md">
+        {% blocktrans %}
+          Manage your workspace settings, team members, and permissions.
+        {% endblocktrans %}
+      </p>
   </div>
-  <!-- filter section -->
-  omar
-  </div>
-</div>
-<div class="flex justify-between px-4 mt-6">
-  <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
-  <div class="join">
-    <button class="join-item btn">«</button>
-    <button class="join-item btn">Page 22</button>
-    <button class="join-item btn">»</button>
+
+
+  <!-- name of each tab group should be unique -->
+  <div class="tabs tabs-box">
+    <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'General settings' %}" checked="checked">
+      <c-icons.cog />
+    </c-ui.tab_btn>
+    <div class="tab-content bg-base-100 border-base-300 p-6">General settings</div>
+
+    <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Organization members' %}">
+      <c-icons.users />
+    </c-ui.tab_btn>
+    <div class="tab-content bg-base-100 border-base-300 p-6">Organization members</div>
+
+    <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Pricing & plans' %}">
+      <c-icons.wallet />
+    </c-ui.tab_btn>
+    <div class="tab-content bg-base-100 border-base-300 p-6">Pricing & plans</div>
+
+    <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Roles & permissions' %}">
+      <c-icons.shield />
+    </c-ui.tab_btn>
+    <div class="tab-content bg-base-100 border-base-300 p-6">Roles & permissions</div>
   </div>
 </div>
 {% endblock %}
