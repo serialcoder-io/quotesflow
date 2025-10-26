@@ -105,12 +105,39 @@
             </c-ui.django_form_input>
           </div>
 
-          <div class="w-full">
-            <c-ui.django_form_input label="{{form.industry_choice.label}}">
+          <div class="w-full" id="industry_container">
+            <c-ui.django_form_input 
+              label="{% trans 'Business sector' %}" 
+              extra_class="industry_choice_label"
+            >
               <c-slot name="icon">
                 <c-icons.building_office2 />
               </c-slot>
               <c-slot name="input">{{form.industry_choice}}</c-slot>
+            </c-ui.django_form_input>
+
+            <c-ui.django_form_input 
+              label="{% trans 'Business sector' %}" 
+              field_name="industry_custom" 
+              extra_class="hidden industry_custom_label"
+            >
+              <c-slot name="icon">
+                <c-icons.building_office2 />
+              </c-slot>
+              <c-slot name="input">
+                <div class="flex items-center gap-2">
+                  {{form.industry_custom}}
+                  <c-ui.button 
+                    extra_class="font-bold p-2" 
+                    id="btn-hide-industry-custom" 
+                    type="button"
+                  >
+                    <c-slot name="text">
+                      <c-icons.x_mark />
+                    </c-slot>
+                  </c-ui.button>
+                </div>
+              </c-slot>
             </c-ui.django_form_input>
           </div>
 
@@ -289,6 +316,12 @@
     const personalFields = document.getElementById("personal-fields");
     const orgNameField = document.querySelector('input[name="name"]');
     const optionalText = document.querySelector(".optional-text");
+    const industryChoiceField = document.querySelector('select[name="industry_choice"]');
+    const industryCustomField = document.querySelector('input[name="industry_custom"]');
+    const industryChoiceLabel = document.querySelector(".industry_choice_label");
+    const industryCustomLabel = document.querySelector(".industry_custom_label");
+    const btnHideIndustryCustom = document.getElementById("btn-hide-industry-custom");
+
     if (isOrgCheckbox.checked) {
       optionalText.classList.add("hidden")
       orgNameField.required = true;
@@ -313,6 +346,23 @@
         });
       }
     });
+
+    if(industryChoiceField){
+      industryChoiceField.addEventListener("change", function(){
+        if(this.value === "other"){
+          industryChoiceLabel.classList.add("hidden");
+          industryCustomLabel.classList.remove("hidden");
+        }
+      })
+    }
+
+    if (btnHideIndustryCustom) {
+      btnHideIndustryCustom.onclick = () => {
+        industryChoiceLabel.classList.remove("hidden");
+        industryCustomLabel.classList.add("hidden");
+        industryChoiceField.selectedIndex = 0;
+      };
+    }
   })
 </script>
 {% endblock %}

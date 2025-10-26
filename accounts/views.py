@@ -18,6 +18,7 @@ def index_view(request):
 @login_required
 def create_organization(request):
     if request.method == "POST":
+        print("posted")
         form = OrganizationModelForm(request.POST, request.FILES)
         print(form.is_valid())
         if form.is_valid():
