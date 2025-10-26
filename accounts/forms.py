@@ -11,8 +11,8 @@ class OrganizationModelForm(forms.ModelForm):
         fields = [
             'name', 'is_org', 
             'first_name', 'last_name', 
-            'logo', 'legal_id_name', 
-            'legal_id', 
+            'logo', 'legal_id_name', 'legal_id', 
+            'industry_choice', 'industry_custom',
             'subscription_start', 'subscription_end',
             'trial_start', 'trial_end', 
             'country', 'address', 'initials'
@@ -26,6 +26,8 @@ class OrganizationModelForm(forms.ModelForm):
             "logo": forms.ClearableFileInput(attrs={"class": input_classes + " file-input", "placeholder": _("Logo")}),
             "legal_id_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Type of legal ID. (e.g: SIRET)")}),
             "legal_id": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Legal ID number")}),
+            "industry_choice": forms.Select(attrs={"class": input_classes}),
+            "industry_custom": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Business sector")}),
             "subscription_start": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
             "subscription_end": forms.DateInput(attrs={"class": "form-control", "type": "date"}),
             "subscription_duration": forms.NumberInput(attrs={"class": "form-control"}),
@@ -34,3 +36,11 @@ class OrganizationModelForm(forms.ModelForm):
             "country": forms.Select(attrs={"class": input_classes}),
             "address": forms.Textarea(attrs={"class": input_classes + " resize-none", "rows": 2, "placeholder": _("Address")}),
         }
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        choice = cleaned_data.get("industry_choice")
+        custom = cleaned_data.get("industry_custom")
+        if not choice and not custom:
+            raise forms.ValidationError(_("Please select or enter an industry."))
+        return cleaned_data

@@ -13,7 +13,15 @@ def get_current_organization_context(request, id: int):
         id=id
     )
 
-    user_orgs = OrganizationUser.objects.filter(user=request.user).values('organization__id', 'organization__name', 'organization__slug')
+    user_orgs = OrganizationUser.objects.filter(
+        user=request.user, 
+        is_active_by_plan=True, 
+        is_active_by_owner=True
+    ).values(
+        'organization__id', 
+        'organization__name', 
+        'organization__slug'
+    )
 
     # check if user belongs to the organization
     is_user_in_org = OrganizationUser.objects.filter(

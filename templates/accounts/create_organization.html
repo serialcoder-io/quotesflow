@@ -106,6 +106,15 @@
           </div>
 
           <div class="w-full">
+            <c-ui.django_form_input label="{{form.industry_choice.label}}">
+              <c-slot name="icon">
+                <c-icons.building_office2 />
+              </c-slot>
+              <c-slot name="input">{{form.industry_choice}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+
+          <div class="w-full">
             <c-ui.django_form_input label="{{form.logo.label}}">
               <c-slot name="icon">
                 <c-icons.file_image />

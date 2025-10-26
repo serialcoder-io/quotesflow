@@ -160,6 +160,31 @@ class SubscriptionPlanFeature(models.Model):
 # --------------------------
 # Organization
 # --------------------------
+COMMON_INDUSTRY_CHOICES = [
+    ('technology', _('Technology / IT')),
+    ('finance', _('Finance / Banking / Insurance')),
+    ('healthcare', _('Healthcare / Medical')),
+    ('education', _('Education / Training')),
+    ('retail', _('Retail / E-commerce')),
+    ('manufacturing', _('Manufacturing / Industrial')),
+    ('construction', _('Construction / Real Estate')),
+    ('transportation', _('Transportation / Logistics')),
+    ('hospitality', _('Hospitality / Tourism')),
+    ('food', _('Food & Beverage')),
+    ('media', _('Media / Entertainment / Publishing')),
+    ('marketing', _('Marketing / Advertising / Communication')),
+    ('legal', _('Legal / Consulting')),
+    ('energy', _('Energy / Utilities / Environment')),
+    ('government', _('Government / Public Sector')),
+    ('nonprofit', _('Non-profit / NGO')),
+    ('agriculture', _('Agriculture / Farming')),
+    ('telecom', _('Telecommunications')),
+    ('arts', _('Arts / Culture / Design')),
+    ('sport', _('Sport / Fitness / Leisure')),
+    ('other', _('Other')),
+]
+
+
 class Organization(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name=_('ID'))
     name = models.CharField(verbose_name=_('organization name'), max_length=100, blank=True, null=True)
@@ -178,7 +203,8 @@ class Organization(models.Model):
     logo = models.ImageField(verbose_name=_('logo'), upload_to="org_logos/", blank=True, null=True)
     legal_id_name = models.CharField(verbose_name=_('Type of legal ID'), max_length=50, blank=True, null=True)  # ex: SIRET
     legal_id = models.CharField(verbose_name=_('legal ID number'), max_length=50, blank=True, null=True)
-    industry = models.CharField(verbose_name=_('Industry'), max_length=100, blank=True, null=True)
+    industry_choice = models.CharField(max_length=50, choices=COMMON_INDUSTRY_CHOICES, blank=True, null=True)
+    industry_custom = models.CharField(max_length=100, blank=True, null=True)
     description = QuillField(verbose_name=_('description'), blank=True, null=True)
     subscription_plan = models.ForeignKey(
         SubscriptionPlan, 
@@ -200,6 +226,10 @@ class Organization(models.Model):
 
     def __str__(self):
         return self.name
+    
+    @property
+    def industry(self):
+        return self.industry_custom or self.industry_choice
 
     class Meta:
         constraints = [

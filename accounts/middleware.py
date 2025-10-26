@@ -24,7 +24,7 @@ class ForceOrganizationMiddleware:
             )
 
             if (not Organization.objects.filter(owner=request.user).exists() and
-                not OrganizationUser.objects.filter(user=request.user).exists() and
+                not OrganizationUser.objects.filter(user=request.user, is_active_by_plan=True, is_active_by_owner=True).exists() and
                 not is_exempt):
                 return redirect('create_organization')
 

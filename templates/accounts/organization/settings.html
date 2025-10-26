@@ -41,22 +41,26 @@
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'General settings' %}" checked="checked">
       <c-icons.cog />
     </c-ui.tab_btn>
-    <div class="tab-content bg-base-100 border-base-300 p-6">General settings</div>
+    <div class="tab-content bg-base-100 border-base-300 p-6 mt-3 rounded-xl">
+      <h2 class="text-xl font-semibold mb-2">
+        {% blocktrans %}Organization Information{% endblocktrans %}
+      </h2>
+    </div>
 
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Organization members' %}">
       <c-icons.users />
     </c-ui.tab_btn>
-    <div class="tab-content bg-base-100 border-base-300 p-6">Organization members</div>
+    <div class="tab-content bg-base-100 border-base-300 p-6  mt-3 rounded-xl">Organization members</div>
 
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Pricing & plans' %}">
       <c-icons.wallet />
     </c-ui.tab_btn>
-    <div class="tab-content bg-base-100 border-base-300 p-6">Pricing & plans</div>
+    <div class="tab-content bg-base-100 border-base-300 p-6  mt-3 rounded-xl">Pricing & plans</div>
 
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Roles & permissions' %}">
       <c-icons.shield />
     </c-ui.tab_btn>
-    <div class="tab-content bg-base-100 border-base-300 p-6">Roles & permissions</div>
+    <div class="tab-content bg-base-100 border-base-300 p-6  mt-3 rounded-xl">Roles & permissions</div>
   </div>
 </div>
 {% endblock %}

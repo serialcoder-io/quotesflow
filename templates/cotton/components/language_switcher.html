@@ -9,13 +9,13 @@
     <img
       src="{% static 'images/uk_flag.png' %}"
       alt=""
-      class="h-3 w-5 mt-1"
+      class="{{ extra_class }} rounded-md w-5 mt-1"
     />
     {% elif LANGUAGE_CODE == "fr" %}
     <img
       src="{% static 'images/fr_flag.jpg' %}"
       alt=""
-      class="{{ extra_class }} w-5 mt-1"
+      class="{{ extra_class }} rounded-md w-5 mt-1"
     />
     {% endif %}
   </div>
