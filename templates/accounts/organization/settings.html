@@ -3,11 +3,12 @@
 {% load i18n %} 
 
 {% block title %}
-<title>{% trans "Customer management" %}</title>
+  <title>{% trans "Organization settings" %}</title>
+  <script src="{% static 'js/create_organization.js' %}" defer></script>
 {% endblock %} 
 
 {% block content %}
-<div class="max-w-6xl mx-auto px-6 py-8">
+<div class="max-w-7xl mx-auto px-6 py-8">
   <!-- Breadcrumb -->
   <nav class="flex mb-6" aria-label="Breadcrumb">
       <ol class="flex items-center space-x-2 text-md">
@@ -36,15 +37,53 @@
   </div>
 
 
-  <!-- name of each tab group should be unique -->
+  <!-- tabs -->
+  <!-- tab organization informaions -->
   <div class="tabs tabs-box">
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'General settings' %}" checked="checked">
       <c-icons.cog />
     </c-ui.tab_btn>
+    <!-- tab content -->
     <div class="tab-content bg-base-100 border-base-300 p-6 mt-3 rounded-xl">
       <h2 class="text-xl font-semibold mb-2">
         {% blocktrans %}Organization Information{% endblocktrans %}
       </h2>
+      <form method="post" class="py-3 grid grid-cols-1 gap-y-3">
+        <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-2">
+          <label class="flex gap-2 items-center">
+            <input 
+              type="checkbox" class="checkbox checkbox-primary checkbox-sm" 
+              name="is_org" id="is_org" checked 
+            />
+            <span class="text-xs">
+              {% blocktrans %}Is this an organization?{% endblocktrans %}
+            </span>
+          </label>
+        </fieldset>
+        <div class="grid grid-cols-3 mt-2 gap-3">
+          <c-ui.django_form_input label="{{form.name.label}}" field_name="name">
+            <c-slot name="icon">
+              <c-icons.building_office />
+            </c-slot>
+            <c-slot name="input">{{form.name}}</c-slot>
+          </c-ui.django_form_input>
+
+          <c-ui.django_form_input label="{{form.initials.label}}" field_name="initials">
+            <c-slot name="icon">
+              <c-icons.clipboard_type />
+            </c-slot>
+            <c-slot name="input">{{form.initials}}</c-slot>
+          </c-ui.django_form_input>
+
+          <c-ui.django_form_input label="{{form.logo.label}}">
+            <c-slot name="icon">
+              <c-icons.file_image />
+            </c-slot>
+            <c-slot name="input">{{form.logo}}</c-slot>
+          </c-ui.django_form_input>
+        </div>
+        
+      </form>
     </div>
 
     <c-ui.tab_btn name="org_settings_tabs" text="{% trans 'Organization members' %}">

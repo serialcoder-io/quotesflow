@@ -18,7 +18,6 @@ def index_view(request):
 @login_required
 def create_organization(request):
     if request.method == "POST":
-        print("posted")
         form = OrganizationModelForm(request.POST, request.FILES)
         print(form.is_valid())
         if form.is_valid():
@@ -73,5 +72,19 @@ def home(request):
 @login_required
 def organization_settings(request, id: uuid):
     context = get_current_organization_context(request, id)
-    org = context["organization"]
+    if request.method == "POST":
+        form = OrganizationModelForm(request.POST, request.FILES)
+        print(form.is_valid())
+        if form.is_valid():
+            print(request.POST)
+        if form.errors:
+            for err in form.errors:
+                print(err)
+    else:
+        current_org = context["organization"]
+        form = OrganizationModelForm(instance=current_org)
+
+    context.update({
+        "form": form
+    })
     return render(request, "accounts/organization/settings.html", context)

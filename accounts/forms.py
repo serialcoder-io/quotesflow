@@ -23,7 +23,7 @@ class OrganizationModelForm(forms.ModelForm):
             "initials": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Organization initials")}),
             "first_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("First name")}),
             "last_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Last name")}),
-            "logo": forms.ClearableFileInput(attrs={"class": input_classes + " file-input", "placeholder": _("Logo")}),
+            "logo": forms.FileInput(attrs={"class": input_classes + " file-input", "placeholder": _("Logo")}),
             "legal_id_name": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Type of legal ID. (e.g: SIRET)")}),
             "legal_id": forms.TextInput(attrs={"class": input_classes, "placeholder": _("Legal ID number")}),
             "industry_choice": forms.Select(attrs={"class": input_classes}),

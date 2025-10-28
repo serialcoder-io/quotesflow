@@ -4,6 +4,7 @@
 
 {% block title %}
 <title>{% blocktrans %}Create your organization{% endblocktrans %}</title>
+<script src="{% static 'js/create_organization.js' %}" defer></script>
 {% endblock %} 
 
 {% block content %}
@@ -53,9 +54,9 @@
 
           <!-- is_org -->
           <label class="label cursor-pointer">
-            <span class="label-text text-base-content text-md font-semibold"
-              >{% blocktrans %}Is this an organization?{% endblocktrans %}</span
-            >
+            <span class="label-text text-base-content text-md font-semibold">
+              {% blocktrans %}Is this an organization?{% endblocktrans %}
+            </span>
             <input
               type="checkbox"
               name="is_org"
@@ -65,7 +66,7 @@
             />
           </label>
         
-          <!-- For individual -->
+          <!-- For individual: required infirmation(first name, lastname) if t is not an org -->
           <div id="personal-fields" class="space-y-5 hidden">
             <div class="w-full">
               <c-ui.django_form_input label="{{form.first_name.label}}">
@@ -307,62 +308,4 @@
     </div>
   </section>
 </main>
-{% endblock %} {% block extra_script %}
-<script>
-  document.addEventListener("DOMContentLoaded", () =>{
-    const fullNameFields = document.querySelectorAll('input[name="first_name"], input[name="last_name"]')
-    const isOrgCheckbox = document.getElementById("is_org");
-    const orgFields = document.getElementById("org-fields");
-    const personalFields = document.getElementById("personal-fields");
-    const orgNameField = document.querySelector('input[name="name"]');
-    const optionalText = document.querySelector(".optional-text");
-    const industryChoiceField = document.querySelector('select[name="industry_choice"]');
-    const industryCustomField = document.querySelector('input[name="industry_custom"]');
-    const industryChoiceLabel = document.querySelector(".industry_choice_label");
-    const industryCustomLabel = document.querySelector(".industry_custom_label");
-    const btnHideIndustryCustom = document.getElementById("btn-hide-industry-custom");
-
-    if (isOrgCheckbox.checked) {
-      optionalText.classList.add("hidden")
-      orgNameField.required = true;
-    }
-
-    isOrgCheckbox.addEventListener("change", () => {
-      if (isOrgCheckbox.checked) {
-        orgFields.classList.remove("hidden");
-        personalFields.classList.add("hidden");
-        orgNameField.required = true;
-        optionalText.classList.add("hidden");
-        fullNameFields.forEach(field => {
-          field.required = false;
-        });
-      } else {
-        orgFields.classList.add("hidden");
-        personalFields.classList.remove("hidden");
-        orgNameField.required = false;
-        optionalText.classList.remove("hidden");
-        fullNameFields.forEach(field => {
-          field.required = true;
-        });
-      }
-    });
-
-    if(industryChoiceField){
-      industryChoiceField.addEventListener("change", function(){
-        if(this.value === "other"){
-          industryChoiceLabel.classList.add("hidden");
-          industryCustomLabel.classList.remove("hidden");
-        }
-      })
-    }
-
-    if (btnHideIndustryCustom) {
-      btnHideIndustryCustom.onclick = () => {
-        industryChoiceLabel.classList.remove("hidden");
-        industryCustomLabel.classList.add("hidden");
-        industryChoiceField.selectedIndex = 0;
-      };
-    }
-  })
-</script>
-{% endblock %}
+{% endblock %} 
