@@ -3,21 +3,29 @@
 <!-- Sidebar -->
 <aside
   id="sidebar"
-  class="fixed top-0 left-0 w-72 py-4 pl-4 h-full transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
+  class="fixed top-0 left-0 w-64 h-full transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
 >
-  <div class="border border-neutral-300 rounded-xl bg-base-100 h-full shadow flex flex-col">
+  <div class="border border-neutral-300 bg-base-100 h-full shadow flex flex-col py-4">
     <!-- Sidebar Header -->
     <div
-      class="flex items-center justify-between h-[60px] px-6 border-b border-b-neutral-300"
+      class="flex items-center justify-between h-[60px] px-6 border-b-neutral-300"
     >
+    
       <div class="flex items-center">
-        <div class="avatar">
-          <div class="mask mask-squircle w-10 rounded-2xl">
-            <img src="{{organization.logo.url}}" />
-          </div>
-        </div>
-        <span class="ml-2 text-xl font-normal text-text-primary"
-          >{{organization.name}}</span
+        <span class="bg-primary p-2 rounded-lg">
+          <svg
+          class="w-5 h-5 text-primary-content"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v2H7V7zm0 4h10v2H7v-2zm0 4h6v2H7v-2z"
+            />
+          </svg>
+        </span>
+              
+        <span class="ml-2 text-lg font-normal text-text-primary"
+          >QuotesFlow</span
         >
       </div>
       <!-- Close button for mobile -->

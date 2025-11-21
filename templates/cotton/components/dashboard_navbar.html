@@ -1,7 +1,7 @@
 {% load i18n %}
-<div class="navbar bg-base-100 shadow-sm rounded-xl sticky top-4 px-4">
+<div class="navbar bg-base-100 shadow-xs sticky top-0 px-8">
     <div class="flex-1 flex gap-3">
-        <div class="w-24"><c-components.language_switcher /></div>
+        <h2 class="text-xl">{{organization.name}}</h2>
     </div>
     <div class="flex-none">
         <c-components.language_switcher extra_class="h-4" />
