@@ -352,7 +352,7 @@ class Customer(models.Model):
         verbose_name=_("Organisation")
     )
     is_company = models.BooleanField(default=False, verbose_name=_("Is a company"))
-    name = models.CharField(max_length=200, verbose_name=_("Customer name"), blank=True, null=True)
+    name = models.CharField(max_length=200, verbose_name=_("name"), blank=True, null=True)
     first_name = models.CharField(verbose_name=_('First name'), max_length=60, blank=True, null=True)
     last_name = models.CharField(verbose_name=_('Last name'), max_length=60, blank=True, null=True)
     email = models.EmailField(verbose_name=_("Email"))

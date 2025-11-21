@@ -1,0 +1,105 @@
+{% load i18n%} 
+
+<dialog id="new_customer_modal" class="modal">
+  <div class="modal-box">
+    <div class="mt-5">
+      <div class="flex justify-end">
+        <button
+          type="button"
+          class="btn btn-sm btn-circle btn-ghost"
+          onclick="new_customer_modal.close()"
+        >
+          <c-icons.x_mark />
+        </button>
+      </div>
+      <form>
+        {% csrf_token %}
+
+        <!-- is_org -->
+        <fieldset
+          class="fieldset bg-base-100 border-base-300 rounded-box w-64 border p-4"
+        >
+          <label class="label">
+            <input
+              type="checkbox"
+              name="is_company"
+              id="is_company"
+              class="toggle toggle-primary checkbox-sm"
+              checked
+            />
+            {% blocktrans %}Customer is company?{% endblocktrans %}
+          </label>
+        </fieldset>
+
+        <!-- For individual: required infirmation(first name, lastname) if t is not an org -->
+        <div
+          id="personal-fields flex flex-col gap-y-3"
+          class="space-y-5 hidden"
+        >
+          <div class="w-full">
+            <c-ui.django_form_input
+              label="{{new_customer_form.first_name.label}}"
+            >
+              <c-slot name="icon">
+                <c-icons.user />
+              </c-slot>
+              <c-slot name="input">{{new_customer_form.first_name}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+
+          <div class="w-full">
+            <c-ui.django_form_input
+              label="{{new_customer_form.last_name.label}}"
+            >
+              <c-slot name="icon">
+                <c-icons.user />
+              </c-slot>
+              <c-slot name="input">{{new_customer_form.last_name}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+        </div>
+
+        <!-- For organization -->
+        <div id="org-fields py-3" class="space-y-5">
+          <div class="w-full">
+            <c-ui.django_form_input label="{{new_customer_form.name.label}}">
+              <c-slot name="icon">
+                <c-icons.tag />
+              </c-slot>
+              <c-slot name="input">{{new_customer_form.name}}</c-slot>
+            </c-ui.django_form_input>
+          </div>
+        </div>
+
+        <!-- Common fields -->
+        <div class="w-full py-2">
+          <c-ui.django_form_input label="{{new_customer_form.email.label}}">
+            <c-slot name="icon">
+              <c-icons.map_pin />
+            </c-slot>
+            <c-slot name="input">{{new_customer_form.email}}</c-slot>
+          </c-ui.django_form_input>
+        </div>
+
+        <div class="w-full py-2">
+          <c-ui.django_form_input label="{{new_customer_form.contact.label}}">
+            <c-slot name="icon">
+              <c-icons.map_pin />
+            </c-slot>
+            <c-slot name="input">{{new_customer_form.contact}}</c-slot>
+          </c-ui.django_form_input>
+        </div>
+
+        <div class="w-full py-2">
+          <c-ui.django_form_input label="{{new_customer_form.address.label}}">
+            <c-slot name="icon">
+              <c-icons.map_pin />
+            </c-slot>
+            <c-slot name="input">{{new_customer_form.address}}</c-slot>
+          </c-ui.django_form_input>
+        </div>
+        <button class="btn" type="button">Click me</button>
+      </form>
+    </div>
+  </div>
+</dialog>

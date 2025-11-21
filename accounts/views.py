@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import Customer, Organization, OrganizationUser
 from accounts.utils import get_current_organization_context
-from .forms import OrganizationModelForm
+from .forms import CustomerModelForm, OrganizationModelForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 
@@ -38,17 +38,19 @@ def dashboard(request, id: uuid):
 
 
 @login_required
-def customer_management(request, id: uuid):
+def customers(request, id: uuid):
     context = get_current_organization_context(request, id)
     org = context["organization"]
     customers_for_org = org.customers.all()
     paginator = Paginator(customers_for_org, 10)
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
+    new_customer_form = CustomerModelForm()
     context.update({
-        "page_obj": page_obj
+        "page_obj": page_obj,
+        "new_customer_form": new_customer_form
     })
-    return render(request, "accounts/organization/customer_management.html", context)
+    return render(request, "accounts/organization/customers.html", context)
 
 
 def organization_settins(request, id: uuid):

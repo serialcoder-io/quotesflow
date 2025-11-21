@@ -1,0 +1,153 @@
+{% extends "accounts/organization/base.html" %} 
+{% load static %} 
+{% load i18n%} 
+
+{% block title %}
+<title>{% trans "Customer management" %}</title>
+{% endblock %} 
+
+{% block content %}
+
+<div class="px-8 py-6">
+  <div class="mb-8">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold text-neutral">
+          {% trans "Customer management" %}
+        </h1>
+        <p class="mt-1 text-sm text-neutral-600">
+          {% blocktrans %}Manage your customers and their details{%
+          endblocktrans %}
+        </p>
+      </div>
+      <div class="mt-4 sm:mt-0">
+        <c-ui.button
+          extra_class="btn-primary h-10 font-normal"
+          onclick="new_customer_modal.showModal()"
+        >
+          <c-slot name="text">
+            <c-icons.plus />
+            <span class="text-md">{% trans "New Customer" %}</span>
+          </c-slot>
+        </c-ui.button>
+        <c-components.customers.new_customer_modal />
+      </div>
+    </div>
+  </div>
+  <!-- filter section -->
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 border border-neutral-200 rounded-xl p-6 bg-base-100"
+  >
+    <div>
+      <c-ui.input_no_label
+        placeholder="{% trans 'Search customers...' %}"
+        type="text"
+        name="search"
+        id="search_customers"
+        extra_class="max-w-md"
+      >
+        <c-icons.magnifying_glass />
+      </c-ui.input_no_label>
+    </div>
+    <div class="flex items-center gap-x-5 justify-end">
+      <c-components.select
+        name="client_status"
+        id="client_status"
+        extra_class="w-48"
+      >
+        <c-slot name="options">
+          <option value="all_status">{% trans 'All status' %}</option>
+          <option value="active">{% trans 'Active' %}</option>
+          <option value="inactive">{% trans 'Inactive' %}</option>
+        </c-slot>
+      </c-components.select>
+      <c-ui.button extra_class="h-10 font-normal">
+        <c-slot name="text">
+          <c-icons.arrow_path />
+          <span class="text-md">Reset filter</span>
+        </c-slot>
+      </c-ui.button>
+    </div>
+  </div>
+
+  <div
+    class="p-4 mt-6 border border-neutral-200 rounded-xl bg-base-100"
+  >
+    <table class="table">
+      <!-- head -->
+      <thead>
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox checkbox-sm" />
+            </label>
+          </th>
+          <th class="text-sm">{% trans "CUSTOMER" %}</th>
+          <th class="text-sm">{% trans "CONTACT" %}</th>
+          <th class="text-sm">{% trans "QUOTES" %}</th>
+          <th class="text-sm">{% trans "INVOICES" %}</th>
+          <th class="text-sm">{% trans "ACTIONS" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- row 1 -->
+        {% for customer in page_obj %}
+        <tr>
+          <th>
+            <label>
+              <input type="checkbox" class="checkbox checkbox-sm" />
+            </label>
+          </th>
+          <td>
+            <div class="flex items-center gap-3">
+              <div class="avatar avatar-placeholder">
+                <div class="bg-primary/20 text-neutral w-8 rounded-full">
+                  <span class="text-xs">UI</span>
+                </div>
+              </div>
+              <div>
+                <div class="font-bold text-md">{{customer.name}}</div>
+                <div class="text-xs opacity-50">{{customer.address}}</div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="text-md">{{customer.email}}</span>
+            <br />
+            <span class="text-md text-neutral-500"> {{customer.contact}} </span>
+          </td>
+          <td>6</td>
+          <td>5</td>
+          <th class="">
+            <button class="btn btn-ghost btn-xs">
+              <c-icons.eye />
+            </button>
+            <div class="dropdown dropdown-bottom dropdown-end">
+              <div tabindex="0" role="button" class="btn h-6 px-3 m-1">
+                <c-icons.ellipsis_vertical />
+              </div>
+              <ul
+                tabindex="-1"
+                class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm"
+              >
+                <li><a class="font-light">{% trans "invoices" %}</a></li>
+                <li><a class="font-light">{% trans "quotes" %}</a></li>
+              </ul>
+            </div>
+          </th>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <!-- foot -->
+    </table>
+  </div>
+</div>
+<div class="flex justify-between px-8 mt-6">
+  <span class="text-sm text-neutral-400">Showing 1 to 10 of 50 entries</span>
+  <div class="join">
+    <button class="join-item btn">«</button>
+    <button class="join-item btn">Page 22</button>
+    <button class="join-item btn">»</button>
+  </div>
+</div>
+{% endblock %}

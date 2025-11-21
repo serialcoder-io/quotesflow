@@ -5,7 +5,7 @@
   id="sidebar"
   class="fixed top-0 left-0 w-64 h-full transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
 >
-  <div class="border border-neutral-300 bg-base-100 h-full shadow flex flex-col py-4">
+  <div class="border border-neutral-300 bg-base-100 h-full flex flex-col py-4">
     <!-- Sidebar Header -->
     <div
       class="flex items-center justify-between h-[60px] px-6 border-b-neutral-300"
@@ -64,8 +64,8 @@
           
           <c-ui.sidebar_link 
             text="{% trans 'Customers' %}" 
-            curr_path="customer_management" 
-            href="{% url 'customer_management' organization.id %}"
+            curr_path="customers" 
+            href="{% url 'customers' organization.id %}"
           >
             <c-icons.users />
           </c-ui.sidebar_link>
