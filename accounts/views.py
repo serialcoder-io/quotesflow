@@ -5,7 +5,8 @@ from allauth.account.views import LoginView
 from django.shortcuts import redirect
 from django.urls import reverse
 from accounts.models import Customer, Organization, OrganizationUser
-from accounts.utils import get_current_organization_context
+#from accounts.utils import get_current_organization_context
+from .helpers.organization import get_current_organization_context
 from .forms import CustomerModelForm, OrganizationModelForm
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
